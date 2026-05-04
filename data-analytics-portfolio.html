@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Data Analytics Portfolio | Up Skills Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{
+  --bg:#06090f;
+  --surface:#0d1220;
+  --panel:#111827;
+  --cyan:#00d4ff;
+  --blue:#3b82f6;
+  --green:#10b981;
+  --purple:#8b5cf6;
+  --text:#e2e8f0;
+  --muted:#64748b;
+  --border:rgba(255,255,255,.07);
+  --glow:0 0 40px rgba(0,212,255,.15);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:var(--cyan);}
+
+/* ── PARTICLE CANVAS ── */
+#particleCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.4;}
+
+/* ── HAMBURGER ── */
+.hamburger-btn{display:none;position:fixed;top:1.2rem;right:1.2rem;z-index:1100;background:var(--cyan);color:var(--bg);border:none;width:44px;height:44px;border-radius:8px;font-size:1.1rem;cursor:pointer;align-items:center;justify-content:center;}
+.mobile-nav{display:none;position:fixed;inset:0;background:rgba(6,9,15,.97);z-index:1050;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;}
+.mobile-nav.open{display:flex;}
+.mobile-nav a{font-family:'Syne',sans-serif;font-size:2.5rem;color:#fff;text-decoration:none;font-weight:800;letter-spacing:2px;transition:color .3s;}
+.mobile-nav a:hover{color:var(--cyan);}
+.mobile-nav .close-btn{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer;}
+
+/* ── SIDEBAR ── */
+.sidebar{position:fixed;left:0;top:0;height:100vh;width:230px;background:var(--surface);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem;gap:0;}
+.sidebar .logo-area{text-align:center;margin-bottom:2rem;}
+.sidebar .logo-area img{width:75px;height:75px;object-fit:contain;border-radius:10px;border:1px solid var(--cyan);box-shadow:0 0 20px rgba(0,212,255,.2);}
+.sidebar .logo-area .brand{font-family:'Space Mono',monospace;color:var(--cyan);font-size:.7rem;letter-spacing:3px;margin-top:.6rem;display:block;}
+.sidebar nav{display:flex;flex-direction:column;gap:.3rem;width:100%;}
+.sidebar nav a{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:.75rem 1rem;border-radius:6px;transition:all .3s;display:flex;align-items:center;gap:.7rem;font-family:'Space Mono',monospace;}
+.sidebar nav a:hover,.sidebar nav a.active{color:var(--cyan);background:rgba(0,212,255,.07);border-left:2px solid var(--cyan);}
+.sidebar .whatsapp-cta{margin-top:auto;width:100%;}
+.sidebar .whatsapp-cta a{display:flex;align-items:center;justify-content:center;gap:.5rem;background:var(--green);color:#fff;padding:.75rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:.78rem;letter-spacing:1px;transition:all .3s;font-family:'Space Mono',monospace;}
+.sidebar .whatsapp-cta a:hover{box-shadow:0 0 20px rgba(16,185,129,.4);}
+
+/* ── MAIN ── */
+.main-wrap{margin-left:230px;position:relative;z-index:1;}
+
+/* ── TICKER ── */
+.ticker{background:var(--surface);border-bottom:1px solid var(--cyan);overflow:hidden;white-space:nowrap;padding:.5rem 0;position:sticky;top:0;z-index:90;}
+.ticker-inner{display:inline-block;animation:ticker 30s linear infinite;}
+.ticker-inner span{font-family:'Space Mono',monospace;letter-spacing:2px;font-size:.75rem;color:var(--cyan);padding:0 3rem;}
+.ticker-inner a{color:var(--green);text-decoration:none;font-family:'Space Mono',monospace;}
+@keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* ── HERO ── */
+#home{min-height:100vh;display:flex;align-items:center;padding:8rem 4rem;position:relative;overflow:hidden;}
+#home::before{content:'';position:absolute;top:0;right:0;width:55%;height:100%;background:radial-gradient(ellipse at 80% 50%,rgba(59,130,246,.12),transparent 65%);}
+.hero-content{position:relative;z-index:2;max-width:700px;}
+.hero-tag{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--cyan);letter-spacing:4px;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;}
+.hero-tag::before{content:'';display:inline-block;width:40px;height:1px;background:var(--cyan);}
+.hero-content h1{font-family:'Syne',sans-serif;font-size:clamp(3rem,5.5vw,5.8rem);font-weight:800;line-height:1.05;margin-bottom:1.5rem;}
+.hero-content h1 .accent{color:var(--cyan);position:relative;}
+.hero-content h1 .accent::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:var(--cyan);box-shadow:0 0 10px var(--cyan);}
+.hero-content p{color:var(--muted);line-height:1.9;font-size:1.05rem;max-width:550px;margin-bottom:2.5rem;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-primary{background:var(--cyan);color:var(--bg);padding:.9rem 2.2rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:.88rem;letter-spacing:1px;transition:all .3s;font-family:'Space Mono',monospace;}
+.btn-primary:hover{box-shadow:0 0 30px rgba(0,212,255,.5);transform:translateY(-2px);}
+.btn-outline{border:1px solid var(--cyan);color:var(--cyan);padding:.9rem 2.2rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:.88rem;letter-spacing:1px;transition:all .3s;font-family:'Space Mono',monospace;}
+.btn-outline:hover{background:rgba(0,212,255,.1);}
+.data-widget{position:absolute;right:4rem;top:50%;transform:translateY(-50%);display:grid;grid-template-columns:1fr 1fr;gap:1rem;z-index:2;}
+.data-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1.5rem;text-align:center;min-width:130px;transition:all .3s;}
+.data-card:hover{border-color:var(--cyan);box-shadow:var(--glow);}
+.data-card .num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--cyan);display:block;}
+.data-card .lbl{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:.3rem;display:block;}
+.data-card:nth-child(2) .num{color:var(--green);}
+.data-card:nth-child(3) .num{color:var(--purple);}
+.data-card:nth-child(4) .num{color:var(--blue);}
+
+/* ── INSTITUTION ── */
+.institution-section{padding:6rem 4rem;background:var(--surface);border-top:1px solid var(--border);}
+.inst-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:stretch;}
+.inst-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:3rem;position:relative;overflow:hidden;transition:all .4s;}
+.inst-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue));}
+.inst-card:hover{border-color:var(--cyan);box-shadow:var(--glow);transform:translateY(-4px);}
+.inst-card .badge{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:1.5rem;display:block;}
+.inst-logo{width:90px;height:90px;object-fit:contain;margin-bottom:1.5rem;border-radius:10px;border:1px solid var(--border);}
+.inst-card h3{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:.8rem;}
+.inst-card p{color:var(--muted);line-height:1.8;font-size:.92rem;margin-bottom:1.5rem;}
+.inst-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--cyan);font-weight:600;text-decoration:none;font-size:.85rem;font-family:'Space Mono',monospace;transition:gap .3s;}
+.inst-link:hover{gap:.8rem;}
+
+/* ── CTA ATTRACT ── */
+.cta-attract{padding:5rem 4rem;background:linear-gradient(135deg,#040811,#0a1628);text-align:center;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.cta-attract::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(59,130,246,.15),transparent 70%);}
+.cta-attract h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:800;margin-bottom:1rem;position:relative;}
+.cta-attract h2 .hl{color:var(--cyan);}
+.cta-attract p{color:var(--muted);max-width:600px;margin:0 auto 2.5rem;line-height:1.8;font-size:1rem;position:relative;}
+.register-btn{background:var(--cyan);color:var(--bg);padding:1.1rem 3rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:.95rem;letter-spacing:1px;transition:all .3s;display:inline-block;position:relative;font-family:'Space Mono',monospace;}
+.register-btn:hover{box-shadow:0 0 40px rgba(0,212,255,.5);transform:scale(1.05);}
+
+/* ── ABOUT ── */
+#about{padding:7rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.about-visual{background:var(--panel);border:1px solid var(--border);border-radius:16px;height:460px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.about-visual .code-bg{position:absolute;inset:0;padding:2rem;font-family:'Space Mono',monospace;font-size:.7rem;color:rgba(0,212,255,.15);line-height:1.9;overflow:hidden;}
+.about-visual .overlay{position:relative;z-index:2;text-align:center;}
+.about-visual .overlay .icon{font-size:5rem;display:block;margin-bottom:1rem;}
+.about-visual .overlay h3{font-family:'Syne',sans-serif;font-size:1.4rem;color:var(--cyan);}
+.about-content .eyebrow{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;display:block;}
+.about-content h2{font-family:'Syne',sans-serif;font-size:2.6rem;font-weight:800;margin-bottom:1.5rem;line-height:1.2;}
+.about-content p{color:var(--muted);line-height:1.9;margin-bottom:1.2rem;font-size:.95rem;}
+.tech-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem;}
+.tech-pill{background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);padding:.35rem .9rem;border-radius:4px;font-family:'Space Mono',monospace;font-size:.72rem;color:var(--cyan);}
+
+/* ── SKILLS ── */
+#skills{padding:7rem 4rem;background:var(--surface);border-top:1px solid var(--border);}
+#skills .section-head{text-align:center;margin-bottom:4rem;}
+#skills .section-head .eyebrow{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--cyan);display:block;margin-bottom:.8rem;}
+#skills .section-head h2{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.skill-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:2rem;transition:all .3s;}
+.skill-card:hover{border-color:var(--cyan);box-shadow:var(--glow);transform:translateY(-6px);}
+.skill-card .icon{font-size:2.2rem;margin-bottom:1.2rem;display:block;}
+.skill-card h4{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.7rem;}
+.skill-card p{color:var(--muted);font-size:.85rem;line-height:1.7;}
+.skill-bar{height:3px;background:var(--border);border-radius:3px;margin-top:1.2rem;overflow:hidden;}
+.skill-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--cyan),var(--blue));animation:barFill 1.5s ease forwards;}
+@keyframes barFill{from{width:0;}to{width:var(--w);}}
+
+/* ── PROJECTS ── */
+#projects{padding:7rem 4rem;}
+#projects .section-head{text-align:center;margin-bottom:4rem;}
+#projects .section-head .eyebrow{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--cyan);display:block;margin-bottom:.8rem;}
+#projects .section-head h2{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.project-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all .4s;cursor:pointer;}
+.project-card:hover{border-color:var(--cyan);box-shadow:var(--glow);transform:translateY(-6px);}
+.project-visual{height:180px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:2.8rem;font-weight:700;position:relative;overflow:hidden;}
+.project-card:nth-child(1) .project-visual{background:linear-gradient(135deg,#0a1628,#162545);color:var(--cyan);}
+.project-card:nth-child(2) .project-visual{background:linear-gradient(135deg,#0a1a10,#0f2b19);color:var(--green);}
+.project-card:nth-child(3) .project-visual{background:linear-gradient(135deg,#150a28,#251045);color:var(--purple);}
+.project-card:nth-child(4) .project-visual{background:linear-gradient(135deg,#1a0a10,#2b0f1a);color:#f87171;}
+.project-card:nth-child(5) .project-visual{background:linear-gradient(135deg,#0a1020,#101828);color:var(--blue);}
+.project-card:nth-child(6) .project-visual{background:linear-gradient(135deg,#1a1208,#2b1e0c);color:#fbbf24;}
+.project-info{padding:1.5rem;}
+.project-info .tag{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:.5rem;display:block;}
+.project-info h4{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.4rem;}
+.project-info p{color:var(--muted);font-size:.82rem;line-height:1.6;}
+
+/* ── CONTACT ── */
+#contact{padding:7rem 4rem;background:var(--surface);border-top:1px solid var(--border);}
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.contact-info .eyebrow{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--cyan);display:block;margin-bottom:.8rem;}
+.contact-info h2{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;margin-bottom:1.5rem;}
+.contact-info p{color:var(--muted);line-height:1.8;margin-bottom:2rem;}
+.contact-chips{display:flex;flex-direction:column;gap:.8rem;}
+.contact-chip{display:flex;align-items:center;gap:1rem;padding:1rem 1.5rem;background:var(--panel);border-radius:8px;border:1px solid var(--border);text-decoration:none;color:var(--text);font-size:.88rem;transition:all .3s;}
+.contact-chip:hover{border-color:var(--cyan);color:var(--cyan);transform:translateX(6px);}
+.contact-chip i{color:var(--cyan);width:18px;}
+.contact-form input,.contact-form textarea{width:100%;padding:.9rem 1.2rem;border:1px solid var(--border);border-radius:8px;background:var(--panel);font-family:'IBM Plex Sans',sans-serif;font-size:.9rem;color:var(--text);margin-bottom:1rem;outline:none;transition:border .3s;}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(0,212,255,.1);}
+.contact-form textarea{height:130px;resize:vertical;}
+.contact-form button{background:var(--cyan);color:var(--bg);padding:1rem 2rem;border:none;border-radius:8px;font-weight:700;font-size:.9rem;cursor:pointer;transition:all .3s;width:100%;font-family:'Space Mono',monospace;letter-spacing:1px;}
+.contact-form button:hover{box-shadow:0 0 30px rgba(0,212,255,.4);}
+
+/* ── FOOTER ── */
+footer{background:#030508;color:#fff;padding:4rem 4rem 2rem;border-top:1px solid var(--border);}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:4rem;margin-bottom:3rem;}
+.footer-brand .name{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--cyan);margin-bottom:.5rem;letter-spacing:2px;}
+.footer-brand p{color:var(--muted);font-size:.88rem;line-height:1.7;}
+.footer-brand .learner{margin-top:1.5rem;padding:1rem;background:rgba(0,212,255,.05);border-radius:8px;border-left:3px solid var(--cyan);}
+.footer-brand .learner span{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);display:block;margin-bottom:.3rem;}
+.footer-brand .learner strong{font-size:1rem;}
+.footer-links h5{font-family:'Space Mono',monospace;letter-spacing:2px;font-size:.7rem;color:var(--cyan);margin-bottom:1.2rem;text-transform:uppercase;}
+.footer-links a{display:block;color:var(--muted);text-decoration:none;font-size:.85rem;margin-bottom:.5rem;transition:color .3s;}
+.footer-links a:hover{color:var(--cyan);}
+.partners-row{margin-bottom:3rem;padding:1.5rem 2rem;background:var(--surface);border-radius:10px;border:1px solid var(--border);}
+.partners-row h5{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;}
+.partners-list{display:flex;gap:1rem;flex-wrap:wrap;}
+.partner-badge{background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.2);padding:.5rem 1.2rem;border-radius:4px;font-family:'Space Mono',monospace;font-size:.68rem;color:var(--cyan);}
+.footer-map{margin-bottom:3rem;}
+.footer-map h5{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+.footer-map iframe{width:100%;height:260px;border-radius:10px;border:1px solid var(--border);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-bottom p{color:var(--muted);font-size:.8rem;}
+.register-now-btn{background:var(--cyan);color:var(--bg);padding:.7rem 2rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:.82rem;letter-spacing:1px;transition:all .3s;font-family:'Space Mono',monospace;}
+.register-now-btn:hover{box-shadow:0 0 20px rgba(0,212,255,.4);}
+.social-icons{display:flex;gap:.8rem;}
+.social-icons a{width:34px;height:34px;border-radius:6px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:all .3s;font-size:.82rem;}
+.social-icons a:hover{border-color:var(--cyan);color:var(--cyan);}
+
+/* ── ANIMATIONS ── */
+.fade-up{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:960px){
+  .sidebar{display:none;}
+  .main-wrap{margin-left:0;}
+  .hamburger-btn{display:flex;}
+  #home{padding:6rem 1.5rem 3rem;flex-direction:column;}
+  .data-widget{position:static;transform:none;grid-template-columns:1fr 1fr;margin-top:2.5rem;width:100%;}
+  .inst-grid,#about,.contact-wrap,.footer-grid{grid-template-columns:1fr;gap:2rem;}
+  .skills-grid,.projects-grid{grid-template-columns:1fr 1fr;}
+  .institution-section,.cta-attract,#about,#skills,#projects,#contact,footer{padding-left:1.5rem;padding-right:1.5rem;}
+}
+@media(max-width:600px){
+  .skills-grid,.projects-grid,.data-widget{grid-template-columns:1fr;}
+  .hero-btns{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="particleCanvas"></canvas>
+
+<button class="hamburger-btn" onclick="document.querySelector('.mobile-nav').classList.toggle('open')">
+  <i class="fas fa-bars"></i>
+</button>
+<nav class="mobile-nav">
+  <button class="close-btn" onclick="document.querySelector('.mobile-nav').classList.remove('open')"><i class="fas fa-times"></i></button>
+  <a href="#home" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Home</a>
+  <a href="#about" onclick="document.querySelector('.mobile-nav').classList.remove('open')">About</a>
+  <a href="#skills" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Skills</a>
+  <a href="#projects" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Projects</a>
+  <a href="https://wa.me/250790170625" target="_blank">Contact</a>
+</nav>
+
+<aside class="sidebar">
+  <div class="logo-area">
+    <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Up Skills Hub"/>
+    <span class="brand">UP SKILLS HUB</span>
+  </div>
+  <nav>
+    <a href="#home" class="active"><i class="fas fa-home"></i> Home</a>
+    <a href="#about"><i class="fas fa-user"></i> About</a>
+    <a href="#skills"><i class="fas fa-chart-bar"></i> Skills</a>
+    <a href="#projects"><i class="fas fa-database"></i> Projects</a>
+    <a href="https://wa.me/250790170625" target="_blank"><i class="fab fa-whatsapp"></i> Contact</a>
+  </nav>
+  <div class="whatsapp-cta">
+    <a href="https://wa.me/250790170625" target="_blank"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+  </div>
+</aside>
+
+<div class="main-wrap">
+
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span>⬡ DATA ANALYTICS PORTFOLIO</span>
+      <span>⬡ Trained by <a href="https://www.alicecop.com/" target="_blank">Alice Uwimana</a></span>
+      <span>⬡ Power BI · Excel · Data Visualization · SQL</span>
+      <span>⬡ UP SKILLS HUB — Kigali, Rwanda</span>
+      <span>⬡ DATA ANALYTICS PORTFOLIO</span>
+      <span>⬡ Trained by <a href="https://www.alicecop.com/" target="_blank">Alice Uwimana</a></span>
+      <span>⬡ Power BI · Excel · Data Visualization · SQL</span>
+      <span>⬡ UP SKILLS HUB — Kigali, Rwanda</span>
+    </div>
+  </div>
+
+  <section id="home">
+    <div class="hero-content fade-up">
+      <div class="hero-tag">Data Analytics Graduate</div>
+      <h1>Turning Raw Data Into <span class="accent">Powerful Insights</span></h1>
+      <p>A data analytics portfolio built through hands-on training at Up Skills Hub. Every dashboard, every model, every visualization here represents real analytical thinking applied to real-world problems.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-primary">View Dashboards</a>
+        <a href="https://www.alicecop.com/" target="_blank" class="btn-outline">Alice Uwimana →</a>
+      </div>
+    </div>
+    <div class="data-widget fade-up">
+      <div class="data-card"><span class="num">SQL</span><span class="lbl">Database Queries</span></div>
+      <div class="data-card"><span class="num">BI</span><span class="lbl">Power BI Reports</span></div>
+      <div class="data-card"><span class="num">XLS</span><span class="lbl">Excel Analysis</span></div>
+      <div class="data-card"><span class="num">VIZ</span><span class="lbl">Data Visualization</span></div>
+    </div>
+  </section>
+
+  <section class="institution-section">
+    <div class="inst-grid">
+      <div class="inst-card fade-up">
+        <span class="badge">🎓 Training Institution</span>
+        <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Up Skills Hub Logo" class="inst-logo"/>
+        <h3>Up Skills Hub</h3>
+        <p>Up Skills Hub empowers youth with practical IT training, internships, and professional career guidance. The Power BI & Data Analysis program equips students with market-ready analytical skills through hands-on project work.</p>
+        <a href="https://www.upskillshub.com/" target="_blank" class="inst-link">Explore Up Skills Hub →</a>
+      </div>
+      <div class="inst-card fade-up">
+        <span class="badge">👩‍💻 Lead Trainer</span>
+        <img src="https://www.alicecop.com/wp-content/uploads/2026/04/Alice-copy-Logo-9-1024x1024.png" alt="Alice Copy" class="inst-logo"/>
+        <h3>Alice Uwimana</h3>
+        <p>Alice Uwimana is a digital skills trainer who believes in practical education over pure theory. Through her Alice Copy platform, she teaches students to learn real skills, build real projects, and turn knowledge into income in today's data-driven economy.</p>
+        <a href="https://www.alicecop.com/" target="_blank" class="inst-link">Visit Alice Uwimana →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-attract">
+    <h2>Data Skills Are the <span class="hl">Most Demanded</span> in the Market</h2>
+    <p>Every company, startup, and NGO in Rwanda needs people who can read, interpret, and act on data. Join Up Skills Hub's Data Analytics program — learn Power BI, Excel, SQL, and real dashboard design with expert guidance from day one.</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScMG7St3ye7JU7viFJFU1mZdXQcbZDuZ9F9wBiByiVek5SCdQ/viewform" target="_blank" class="register-btn">Enroll Now — Start Your Data Journey</a>
+  </section>
+
+  <section id="about">
+    <div class="about-visual fade-up">
+      <div class="code-bg">
+SELECT category, SUM(revenue)<br>
+FROM sales_data<br>
+GROUP BY category<br>
+ORDER BY SUM(revenue) DESC;<br><br>
+MEASURE Total Sales =<br>
+SUMX(Orders, [Qty]*[Price])<br><br>
+=VLOOKUP(A2,Sheet2!A:C,3,0)<br><br>
+=AVERAGEIFS(D:D,B:B,"Kigali")<br>
+      </div>
+      <div class="overlay">
+        <span class="icon">📊</span>
+        <h3>Data Analyst</h3>
+      </div>
+    </div>
+    <div class="about-content fade-up">
+      <span class="eyebrow">About This Portfolio</span>
+      <h2>Insights Powered by Training</h2>
+      <p>This portfolio documents the analytical journey of a student trained at Up Skills Hub under Alice Uwimana. Through structured, project-based training, I developed the ability to collect, clean, analyze, and visualize data that drives real business decisions.</p>
+      <p>From building interactive Power BI dashboards to writing SQL queries and creating Excel models, this work demonstrates proficiency in the full data analytics workflow — from raw dataset to actionable insight.</p>
+      <div class="tech-pills">
+        <span class="tech-pill">Power BI</span>
+        <span class="tech-pill">Microsoft Excel</span>
+        <span class="tech-pill">SQL</span>
+        <span class="tech-pill">Data Cleaning</span>
+        <span class="tech-pill">DAX</span>
+        <span class="tech-pill">Pivot Tables</span>
+        <span class="tech-pill">Data Modeling</span>
+        <span class="tech-pill">KPI Dashboards</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head fade-up">
+      <span class="eyebrow">Core Tools & Competencies</span>
+      <h2>Analytics Skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card fade-up">
+        <span class="icon">📊</span>
+        <h4>Power BI Dashboards</h4>
+        <p>Interactive dashboards with slicers, drill-throughs, KPI cards, and DAX measures for business intelligence reporting.</p>
+        <div class="skill-bar"><div class="skill-bar-fill" style="--w:90%"></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="icon">📋</span>
+        <h4>Microsoft Excel</h4>
+        <p>Advanced Excel including VLOOKUP, Pivot Tables, conditional formatting, named ranges, and dynamic charts.</p>
+        <div class="skill-bar"><div class="skill-bar-fill" style="--w:88%"></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="icon">🗄️</span>
+        <h4>SQL & Database Queries</h4>
+        <p>Writing SQL queries to extract, filter, aggregate, and join datasets for analytical reporting and data preparation.</p>
+        <div class="skill-bar"><div class="skill-bar-fill" style="--w:80%"></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="icon">🧹</span>
+        <h4>Data Cleaning & Preparation</h4>
+        <p>Identifying and resolving data quality issues, standardizing formats, handling missing values, and structuring raw datasets.</p>
+        <div class="skill-bar"><div class="skill-bar-fill" style="--w:85%"></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="icon">📈</span>
+        <h4>Data Visualization</h4>
+        <p>Choosing the right chart types, color coding by meaning, and designing visuals that communicate data stories clearly.</p>
+        <div class="skill-bar"><div class="skill-bar-fill" style="--w:87%"></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="icon">🔍</span>
+        <h4>Analytical Thinking</h4>
+        <p>Asking the right business questions, forming data-driven hypotheses, and translating numbers into actionable recommendations.</p>
+        <div class="skill-bar"><div class="skill-bar-fill" style="--w:83%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head fade-up">
+      <span class="eyebrow">Student Work</span>
+      <h2>Analytics Projects</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card fade-up">
+        <div class="project-visual">📊 BI</div>
+        <div class="project-info">
+          <span class="tag">Power BI</span>
+          <h4>Sales Performance Dashboard</h4>
+          <p>Interactive Power BI report tracking revenue, units sold, and regional performance across monthly periods.</p>
+        </div>
+      </div>
+      <div class="project-card fade-up">
+        <div class="project-visual">📋 XLS</div>
+        <div class="project-info">
+          <span class="tag">Excel Analysis</span>
+          <h4>Financial Data Model</h4>
+          <p>Multi-sheet Excel workbook with automated calculations, PivotTable summaries, and dynamic forecast charts.</p>
+        </div>
+      </div>
+      <div class="project-card fade-up">
+        <div class="project-visual">🗄️ SQL</div>
+        <div class="project-info">
+          <span class="tag">SQL Database</span>
+          <h4>Customer Segmentation Query</h4>
+          <p>SQL analysis segmenting customers by purchasing behavior and lifetime value for targeted marketing strategy.</p>
+        </div>
+      </div>
+      <div class="project-card fade-up">
+        <div class="project-visual">📉 KPI</div>
+        <div class="project-info">
+          <span class="tag">KPI Dashboard</span>
+          <h4>HR Analytics Report</h4>
+          <p>Employee performance, attendance, and turnover metrics visualized for HR decision-making support.</p>
+        </div>
+      </div>
+      <div class="project-card fade-up">
+        <div class="project-visual">🔢 DAX</div>
+        <div class="project-info">
+          <span class="tag">Power BI + DAX</span>
+          <h4>Inventory Tracking System</h4>
+          <p>Real-time inventory dashboard with restock alerts, category breakdowns, and trend analysis.</p>
+        </div>
+      </div>
+      <div class="project-card fade-up">
+        <div class="project-visual">📌 VIZ</div>
+        <div class="project-info">
+          <span class="tag">Data Visualization</span>
+          <h4>Survey Data Infographic</h4>
+          <p>Clean, compelling visual summary of survey responses translated into a management-ready presentation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-wrap">
+      <div class="contact-info fade-up">
+        <span class="eyebrow">Get In Touch</span>
+        <h2>Let's Connect</h2>
+        <p>Need a data analyst for your business or organization? Or interested in joining Up Skills Hub's Data Analytics program? I'd love to hear from you.</p>
+        <div class="contact-chips">
+          <a href="https://wa.me/250790170625" target="_blank" class="contact-chip"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+          <a href="https://www.upskillshub.com/" target="_blank" class="contact-chip"><i class="fas fa-globe"></i> Up Skills Hub</a>
+          <a href="https://www.alicecop.com/" target="_blank" class="contact-chip"><i class="fas fa-star"></i> Alice Uwimana — Trainer</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLScMG7St3ye7JU7viFJFU1mZdXQcbZDuZ9F9wBiByiVek5SCdQ/viewform" target="_blank" class="contact-chip"><i class="fas fa-graduation-cap"></i> Enroll in the Course</a>
+        </div>
+      </div>
+      <div class="contact-form fade-up">
+        <input type="text" placeholder="Your Full Name"/>
+        <input type="email" placeholder="Email Address"/>
+        <input type="text" placeholder="Inquiry (e.g. Hire Analyst, Course Info)"/>
+        <textarea placeholder="Tell me about your data needs or questions..."></textarea>
+        <button onclick="window.open('https://wa.me/250790170625','_blank')">Send via WhatsApp</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="name">DATA ANALYTICS</div>
+        <p>Student portfolio from Up Skills Hub — Power BI, Excel, SQL & Data Visualization. Built with real data, driven by purpose.</p>
+        <div class="learner">
+          <span>Portfolio Owner</span>
+          <strong>Up Skills Hub Student</strong>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h5>Navigate</h5>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="https://wa.me/250790170625" target="_blank">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h5>Programs</h5>
+        <a href="https://www.upskillshub.com/" target="_blank">Up Skills Hub</a>
+        <a href="https://www.alicecop.com/" target="_blank">Alice Uwimana</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScMG7St3ye7JU7viFJFU1mZdXQcbZDuZ9F9wBiByiVek5SCdQ/viewform" target="_blank">Enroll Now</a>
+      </div>
+    </div>
+    <div class="partners-row">
+      <h5>Partners & Affiliates</h5>
+      <div class="partners-list">
+        <span class="partner-badge">Up Skills Hub</span>
+        <span class="partner-badge">Alice Copy</span>
+        <span class="partner-badge">Microsoft Power BI</span>
+        <span class="partner-badge">Microsoft Excel</span>
+        <span class="partner-badge">Rwanda Tech Community</span>
+      </div>
+    </div>
+    <div class="footer-map">
+      <h5>📍 Up Skills Hub — Remera, Kigali, Rwanda</h5>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.4580199!2d30.1107958!3d-1.9603384!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca795b99988fb%3A0x4fd8ce87010498cb!2sUp%20Skills%20Hub!5e0!3m2!1sen!2srw!4v1700000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Up Skills Hub Location"></iframe>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Up Skills Hub Data Analytics Portfolio. Trained by <a href="https://www.alicecop.com/" target="_blank" style="color:var(--cyan);text-decoration:none;">Alice Uwimana</a>.</p>
+      <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+          <a href="https://wa.me/250790170625" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScMG7St3ye7JU7viFJFU1mZdXQcbZDuZ9F9wBiByiVek5SCdQ/viewform" target="_blank" class="register-now-btn">Enroll in This Course</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+// Particle canvas
+const canvas=document.getElementById('particleCanvas');
+const ctx=canvas.getContext('2d');
+let particles=[];
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+function createParticle(){return{x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.5+.5,dx:(Math.random()-.5)*.3,dy:(Math.random()-.5)*.3,alpha:Math.random()*.5+.1};}
+for(let i=0;i<120;i++)particles.push(createParticle());
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(0,212,255,${p.alpha})`;ctx.fill();
+    p.x+=p.dx;p.y+=p.dy;
+    if(p.x<0||p.x>canvas.width)p.dx*=-1;
+    if(p.y<0||p.y>canvas.height)p.dy*=-1;
+  });
+  requestAnimationFrame(draw);
+}draw();
+
+// Scroll animations
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+
+// Nav active
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.sidebar nav a');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-200)current=s.id;});
+  navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+current));
+});
+</script>
+</body>
+</html>
