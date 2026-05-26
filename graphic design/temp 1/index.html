@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Uwase Jamirah — Graphic Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Outfit:wght@300;400;500;600;700&family=Teko:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ═══════════════════════════════════
+   VARIABLES & RESET
+═══════════════════════════════════ */
+:root {
+  --bg:        #0c0b09;
+  --bg2:       #131210;
+  --bg3:       #1a1814;
+  --surface:   #201e1a;
+  --gold:      #c9a84c;
+  --gold-dim:  rgba(201,168,76,.15);
+  --gold-brd:  rgba(201,168,76,.25);
+  --rust:      #c44b2b;
+  --cream:     #f0ead8;
+  --white:     #faf8f4;
+  --muted:     #7a756c;
+  --border:    rgba(255,255,255,.07);
+  --r:         14px;
+  --shadow:    0 4px 32px rgba(0,0,0,.5);
+  --shadow-lg: 0 16px 64px rgba(0,0,0,.6);
+  --transition: .3s cubic-bezier(.4,0,.2,1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--cream);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+/* ═══════════════════════════════════
+   TICKER
+═══════════════════════════════════ */
+.ticker {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: var(--gold);
+  overflow: hidden;
+  padding: .45rem 0;
+  white-space: nowrap;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 30s linear infinite;
+}
+.ticker-inner span {
+  font-family: 'Teko', sans-serif;
+  font-size: 1rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--bg);
+  padding: 0 3rem;
+}
+.ticker-inner a {
+  color: var(--bg);
+  text-decoration: underline;
+  font-family: 'Teko', sans-serif;
+  letter-spacing: .18em;
+}
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ═══════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════ */
+.sidebar {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: 230px;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 1.5rem;
+  gap: 0;
+}
+
+.sidebar-profile {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-photo {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--gold);
+  margin: 0 auto .8rem;
+  display: block;
+}
+.sidebar-photo-placeholder {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--gold-brd);
+  margin: 0 auto .8rem;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold);
+  font-size: 1.6rem;
+}
+.sidebar-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: .04em;
+  display: block;
+  line-height: 1.3;
+}
+.sidebar-role {
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: .3rem;
+  display: block;
+  font-weight: 500;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  flex: 1;
+}
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .75rem 1rem;
+  border-radius: 8px;
+  font-size: .82rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: all var(--transition);
+  position: relative;
+}
+.sidebar-nav a i { width: 16px; text-align: center; font-size: .85rem; }
+.sidebar-nav a:hover, .sidebar-nav a.active {
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+.sidebar-nav a.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 3px; height: 18px;
+  background: var(--gold);
+  border-radius: 0 3px 3px 0;
+}
+
+.sidebar-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: .7rem;
+  border-radius: 8px;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  transition: all var(--transition);
+}
+.sidebar-btn.gold {
+  background: var(--gold);
+  color: var(--bg);
+}
+.sidebar-btn.gold:hover { background: #e8c563; }
+.sidebar-btn.ghost {
+  background: var(--gold-dim);
+  color: var(--gold);
+  border: 1px solid var(--gold-brd);
+}
+.sidebar-btn.ghost:hover { background: var(--gold); color: var(--bg); }
+
+/* ═══════════════════════════════════
+   MOBILE NAV
+═══════════════════════════════════ */
+.mob-bar {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 58px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  z-index: 300;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+}
+.mob-bar-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--white);
+}
+.mob-bar-name em { color: var(--gold); font-style: italic; }
+.mob-toggle {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--cream);
+  width: 38px; height: 38px;
+  border-radius: 8px;
+  font-size: .95rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+}
+.mob-toggle:hover { border-color: var(--gold); color: var(--gold); }
+
+.mob-menu {
+  display: none;
+  position: fixed;
+  inset: 58px 0 0 0;
+  background: var(--bg2);
+  z-index: 290;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+  gap: .4rem;
+  overflow-y: auto;
+}
+.mob-menu.open { display: flex; }
+.mob-menu a {
+  font-family: 'Teko', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  padding: .5rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: color var(--transition);
+}
+.mob-menu a:last-child { border-bottom: none; }
+.mob-menu a:hover { color: var(--gold); }
+.mob-menu .mob-btns {
+  display: flex; flex-direction: column; gap: .6rem; margin-top: 1.5rem;
+}
+
+/* ═══════════════════════════════════
+   MAIN WRAP
+═══════════════════════════════════ */
+.main { margin-left: 230px; }
+
+/* ═══════════════════════════════════
+   SHARED
+═══════════════════════════════════ */
+section { padding: 90px 0; }
+.container { max-width: 1080px; margin: 0 auto; padding: 0 3rem; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.eyebrow::before {
+  content: '';
+  width: 28px; height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--white);
+}
+.section-title em { font-style: italic; color: var(--gold); }
+
+/* ═══════════════════════════════════
+   HERO
+═══════════════════════════════════ */
+#home {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  position: relative;
+  background: var(--bg);
+}
+
+/* subtle grain overlay */
+#home::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-left {
+  padding: 7rem 4rem 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-available {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-brd);
+  border-radius: 100px;
+  padding: .35rem 1rem;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  width: fit-content;
+  margin-bottom: 2rem;
+  animation: fadeUp .6s ease both;
+}
+.hero-available::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: pulseDot 2s infinite;
+}
+@keyframes pulseDot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.8)} }
+
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.2rem, 5.5vw, 6rem);
+  font-weight: 300;
+  line-height: 1.0;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  animation: fadeUp .7s .1s ease both;
+}
+.hero-name strong { font-weight: 700; }
+.hero-name em { font-style: italic; color: var(--gold); }
+
+.hero-desc {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.85;
+  max-width: 460px;
+  margin-bottom: 2.5rem;
+  animation: fadeUp .7s .2s ease both;
+}
+.hero-desc b { color: var(--cream); font-weight: 500; }
+
+.hero-ctas {
+  display: flex;
+  gap: .9rem;
+  flex-wrap: wrap;
+  animation: fadeUp .7s .3s ease both;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--gold);
+  color: var(--bg);
+  padding: .85rem 1.8rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: .85rem;
+  letter-spacing: .05em;
+  transition: all var(--transition);
+}
+.btn-primary:hover { background: #e8c563; transform: translateY(-2px); }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--surface);
+  color: var(--cream);
+  border: 1px solid var(--border);
+  padding: .85rem 1.8rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: .85rem;
+  letter-spacing: .05em;
+  transition: all var(--transition);
+}
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+.btn-ghost-gold {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold-brd);
+  padding: .85rem 1.8rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: .85rem;
+  letter-spacing: .05em;
+  transition: all var(--transition);
+}
+.btn-ghost-gold:hover { background: var(--gold); color: var(--bg); transform: translateY(-2px); }
+
+.hero-skills-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  animation: fadeUp .7s .4s ease both;
+}
+.skill-pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: .3rem .9rem;
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: var(--muted);
+  transition: all var(--transition);
+}
+.skill-pill:hover { border-color: var(--gold); color: var(--gold); }
+
+/* hero right — dark panel */
+.hero-right {
+  background: var(--bg2);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 3rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.hero-right-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(201,168,76,.08) 0%, transparent 55%),
+    radial-gradient(circle at 20% 80%, rgba(196,75,43,.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-right-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  opacity: .4;
+}
+
+.hero-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 320px;
+  position: relative;
+  z-index: 2;
+  animation: fadeUp .8s .2s ease both;
+}
+.hero-card-label {
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.hero-card-label::before { content: ''; width: 20px; height: 1px; background: var(--muted); }
+
+.hero-skill-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.1rem;
+}
+.hero-skill-item:last-of-type { margin-bottom: 0; }
+.hero-skill-name {
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--cream);
+  display: flex; align-items: center; gap: .55rem;
+}
+.hero-skill-name i { color: var(--gold); width: 16px; text-align: center; }
+.hero-skill-pct {
+  font-family: 'Teko', sans-serif;
+  font-size: 1rem;
+  color: var(--gold);
+  letter-spacing: .04em;
+}
+.hero-skill-bar {
+  height: 3px;
+  background: var(--border);
+  border-radius: 100px;
+  margin-top: .4rem;
+  overflow: hidden;
+  margin-bottom: .8rem;
+}
+.hero-skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--rust));
+  border-radius: 100px;
+  transition: width 1.2s ease;
+  width: 0;
+}
+
+/* Floating badge */
+.hero-badge {
+  position: absolute;
+  bottom: -18px;
+  right: -18px;
+  background: var(--gold);
+  color: var(--bg);
+  border-radius: 10px;
+  padding: .8rem 1.2rem;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  box-shadow: var(--shadow);
+}
+.hero-badge strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; line-height: 1; }
+
+/* ═══════════════════════════════════
+   INSTITUTION SECTION
+═══════════════════════════════════ */
+#institution {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 80px 0;
+}
+
+.inst-label {
+  text-align: center;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3rem;
+}
+
+.inst-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.inst-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition);
+}
+.inst-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--rust));
+}
+.inst-card:hover {
+  border-color: var(--gold-brd);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.inst-badge {
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-brd);
+  border-radius: 100px;
+  padding: .25rem .8rem;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.inst-logo {
+  width: 72px; height: 72px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: var(--bg3);
+  padding: .4rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid var(--border);
+}
+
+.inst-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: .75rem;
+}
+.inst-card p {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+.inst-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--gold);
+  transition: gap var(--transition);
+}
+.inst-link:hover { gap: .75rem; }
+
+/* ═══════════════════════════════════
+   QUOTE / CTA BAND
+═══════════════════════════════════ */
+.quote-band {
+  background: var(--bg3);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+.quote-band::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(201,168,76,.07) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 50%, rgba(196,75,43,.05) 0%, transparent 55%);
+  pointer-events: none;
+}
+.quote-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 3rem;
+  position: relative;
+  z-index: 1;
+}
+.quote-mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 6rem;
+  line-height: .5;
+  color: var(--gold);
+  opacity: .3;
+  display: block;
+  margin-bottom: 1rem;
+}
+.quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--white);
+  margin-bottom: 2.5rem;
+  font-style: italic;
+}
+.quote-text em { font-style: normal; color: var(--gold); font-weight: 600; }
+.quote-text p {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  color: var(--muted);
+  font-style: normal;
+  line-height: 1.8;
+  max-width: 640px;
+  margin: 1.5rem auto 0;
+}
+.quote-cta {
+  margin-top: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  background: var(--gold);
+  color: var(--bg);
+  padding: 1rem 2.5rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: .9rem;
+  letter-spacing: .06em;
+  transition: all var(--transition);
+}
+.quote-cta:hover { transform: scale(1.04); box-shadow: 0 8px 32px rgba(201,168,76,.35); }
+
+/* ═══════════════════════════════════
+   ABOUT
+═══════════════════════════════════ */
+#about {
+  background: var(--bg);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.about-photo-col { position: relative; }
+.about-photo-outer {
+  aspect-ratio: 3/4;
+  border-radius: var(--r);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.about-photo-outer img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.about-photo-placeholder {
+  display: flex; flex-direction: column; align-items: center; gap: .75rem;
+  color: var(--muted);
+}
+.about-photo-placeholder i { font-size: 2.5rem; color: var(--gold); opacity: .4; }
+.about-photo-placeholder span { font-size: .78rem; letter-spacing: .06em; }
+
+/* accent elements */
+.about-accent-corner {
+  position: absolute;
+  top: -16px; left: -16px;
+  width: 72px; height: 72px;
+  border-top: 3px solid var(--gold);
+  border-left: 3px solid var(--gold);
+  border-radius: 4px 0 0 0;
+  pointer-events: none;
+}
+.about-accent-corner2 {
+  position: absolute;
+  bottom: -16px; right: -16px;
+  width: 72px; height: 72px;
+  border-bottom: 3px solid var(--rust);
+  border-right: 3px solid var(--rust);
+  border-radius: 0 0 4px 0;
+  pointer-events: none;
+}
+.about-stat-badge {
+  position: absolute;
+  bottom: -20px; right: -20px;
+  background: var(--gold);
+  color: var(--bg);
+  padding: 1rem 1.4rem;
+  border-radius: 10px;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-align: center;
+  box-shadow: var(--shadow);
+  z-index: 2;
+}
+.about-stat-badge strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; line-height: 1; }
+
+.about-content h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  line-height: 1.15;
+}
+.about-content h2 em { font-style: italic; color: var(--gold); }
+
+.about-content p {
+  font-size: .95rem;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 1.2rem;
+}
+.about-content p b { color: var(--cream); font-weight: 500; }
+
+.skills-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin: 2rem 0;
+}
+.chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: .35rem .9rem;
+  font-size: .75rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition: all var(--transition);
+}
+.chip:hover { border-color: var(--gold-brd); color: var(--gold); }
+
+/* ═══════════════════════════════════
+   SKILLS
+═══════════════════════════════════ */
+#skills {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+}
+
+.skills-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+  flex-wrap: wrap;
+}
+.skills-subtitle {
+  max-width: 380px;
+  font-size: .92rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.skills-bento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition);
+}
+.skill-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--rust));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+.skill-card:hover { border-color: var(--gold-brd); transform: translateY(-4px); box-shadow: var(--shadow); }
+.skill-card:hover::after { transform: scaleX(1); }
+
+.skill-card-icon {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+  display: block;
+}
+.skill-card h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: .6rem;
+}
+.skill-card p {
+  font-size: .85rem;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 1.4rem;
+}
+.skill-bar-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .4rem;
+}
+.skill-bar-row span:last-child { color: var(--gold); }
+.skill-bar-track {
+  height: 3px;
+  background: var(--border);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--rust));
+  border-radius: 100px;
+  width: 0;
+  transition: width 1.2s cubic-bezier(.4,0,.2,1);
+}
+
+/* ═══════════════════════════════════
+   PROJECTS
+═══════════════════════════════════ */
+#projects {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+.projects-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+  flex-wrap: wrap;
+}
+.projects-count {
+  font-family: 'Teko', sans-serif;
+  font-size: 1rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.project-card:hover { border-color: var(--gold-brd); transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+
+.project-thumb {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Teko', sans-serif;
+  font-size: 3.5rem;
+  letter-spacing: .15em;
+  position: relative;
+  overflow: hidden;
+}
+.project-card:nth-child(1) .project-thumb { background: linear-gradient(135deg, #111827, #1e2d4a); color: var(--gold); }
+.project-card:nth-child(2) .project-thumb { background: linear-gradient(135deg, #1a0d00, #3d2000); color: #e8c563; }
+.project-card:nth-child(3) .project-thumb { background: linear-gradient(135deg, #060d18, #0d1f3a); color: #8ab8e0; }
+.project-card:nth-child(4) .project-thumb { background: linear-gradient(135deg, #100820, #26123c); color: #c9a6e8; }
+.project-card:nth-child(5) .project-thumb { background: linear-gradient(135deg, #050d04, #0f2410); color: #80c880; }
+.project-card:nth-child(6) .project-thumb { background: linear-gradient(135deg, #180404, #3a0808); color: #e89090; }
+
+.project-thumb-inner { position: relative; z-index: 1; }
+
+.project-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.65);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition);
+  backdrop-filter: blur(2px);
+}
+.project-card:hover .project-overlay { opacity: 1; }
+.view-btn {
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  padding: .7rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: .8rem;
+  letter-spacing: .06em;
+  cursor: pointer;
+  display: flex; align-items: center; gap: .4rem;
+  transition: transform var(--transition);
+}
+.view-btn:hover { transform: scale(1.05); }
+
+.project-body { padding: 1.5rem; }
+.project-cat {
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: .5rem;
+  display: block;
+}
+.project-body h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: .4rem;
+}
+.project-body p {
+  font-size: .82rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 1.1rem;
+}
+.project-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: .9rem;
+  border-top: 1px solid var(--border);
+}
+.project-open-btn {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-brd);
+  padding: .3rem .8rem;
+  border-radius: 100px;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.project-open-btn:hover { background: var(--gold); color: var(--bg); }
+.project-year { font-size: .72rem; color: var(--muted); }
+
+/* ═══════════════════════════════════
+   MODAL
+═══════════════════════════════════ */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.8);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  backdrop-filter: blur(8px);
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  max-width: 680px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  animation: modalIn .35s cubic-bezier(.34,1.56,.64,1);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+@keyframes modalIn { from{transform:scale(.85);opacity:0} to{transform:scale(1);opacity:1} }
+
+.modal-hero {
+  height: 220px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Teko', sans-serif;
+  font-size: 5rem;
+  letter-spacing: .15em;
+  position: relative;
+}
+.modal-top-bar {
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--rust));
+}
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: rgba(0,0,0,.45);
+  border: 1px solid rgba(255,255,255,.1);
+  color: var(--cream);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+  z-index: 5;
+}
+.modal-close:hover { background: var(--rust); border-color: var(--rust); }
+
+.modal-body { padding: 2.5rem; }
+.modal-cat {
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: inline-block;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-brd);
+  border-radius: 100px;
+  padding: .2rem .8rem;
+  margin-bottom: 1rem;
+}
+.modal-body h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+.modal-body p {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+}
+.modal-tools {
+  display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 2rem;
+}
+.modal-tool {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: .25rem .8rem;
+  font-size: .75rem;
+  color: var(--cream);
+}
+.modal-actions {
+  display: flex; gap: .8rem; flex-wrap: wrap;
+}
+
+/* ═══════════════════════════════════
+   CONTACT
+═══════════════════════════════════ */
+#contact {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.contact-text h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 1rem;
+  line-height: 1.15;
+}
+.contact-text h2 em { font-style: italic; color: var(--gold); }
+.contact-text p { font-size: .95rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+
+.contact-methods {
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+}
+.contact-method {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.3rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: all var(--transition);
+  text-decoration: none;
+  color: var(--cream);
+}
+.contact-method:hover { border-color: var(--gold-brd); transform: translateX(5px); }
+.contact-method-icon {
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  background: var(--gold-dim);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.contact-method-icon.wa { background: rgba(37,211,102,.1); color: #25d366; }
+.contact-method-label {
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.contact-method-val { font-size: .9rem; font-weight: 500; margin-top: .1rem; }
+
+.contact-form-wrap { }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-bottom: .8rem; }
+.cf-group { margin-bottom: .8rem; }
+.cf-label {
+  display: block;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .45rem;
+}
+.cf-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .8rem 1rem;
+  font-size: .9rem;
+  font-family: 'Outfit', sans-serif;
+  color: var(--cream);
+  outline: none;
+  transition: border-color var(--transition);
+  resize: vertical;
+}
+.cf-input::placeholder { color: var(--muted); opacity: .6; }
+.cf-input:focus { border-color: var(--gold-brd); }
+.cf-submit {
+  width: 100%;
+  padding: 1rem;
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  cursor: pointer;
+  margin-top: .5rem;
+  transition: all var(--transition);
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+}
+.cf-submit:hover { background: #e8c563; transform: translateY(-2px); }
+
+/* ═══════════════════════════════════
+   FOOTER
+═══════════════════════════════════ */
+footer {
+  background: var(--bg3);
+  border-top: 1px solid var(--border);
+  padding: 60px 0 30px;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.footer-brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--white);
+  display: block;
+  margin-bottom: .5rem;
+}
+.footer-brand-name em { font-style: italic; color: var(--gold); }
+.footer-brand p {
+  font-size: .88rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  max-width: 320px;
+}
+
+.footer-trained {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+}
+.footer-trained-label {
+  font-size: .62rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: .3rem;
+}
+.footer-trained strong { font-size: .9rem; color: var(--cream); font-weight: 500; }
+
+.footer-col h5 {
+  font-family: 'Teko', sans-serif;
+  font-size: .95rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+}
+.footer-col a {
+  display: block;
+  font-size: .85rem;
+  color: var(--muted);
+  margin-bottom: .5rem;
+  transition: color var(--transition);
+}
+.footer-col a:hover { color: var(--gold); }
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-copy { font-size: .8rem; color: var(--muted); }
+.footer-copy a { color: var(--gold); }
+
+.footer-socials {
+  display: flex; gap: .6rem; align-items: center;
+}
+.social-btn {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted);
+  font-size: .85rem;
+  transition: all var(--transition);
+}
+.social-btn:hover { border-color: var(--gold-brd); color: var(--gold); }
+
+.footer-enroll {
+  display: inline-flex; align-items: center; gap: .45rem;
+  background: var(--gold);
+  color: var(--bg);
+  padding: .6rem 1.4rem;
+  border-radius: 6px;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  transition: all var(--transition);
+}
+.footer-enroll:hover { background: #e8c563; }
+
+/* ═══════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .65s ease, transform .65s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════ */
+@media (max-width: 1024px) {
+  .sidebar { display: none; }
+  .mob-bar { display: flex; }
+  .main { margin-left: 0; }
+  #home { grid-template-columns: 1fr; }
+  .hero-left { padding: 5.5rem 2rem 3rem; }
+  .hero-right { padding: 3rem 2rem; border-left: none; border-top: 1px solid var(--border); }
+  .hero-card { max-width: 100%; }
+  .ticker { margin-top: 58px; }
+  section { padding: 70px 0; }
+  .container { padding: 0 1.5rem; }
+}
+
+@media (max-width: 768px) {
+  .inst-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-photo-col { max-width: 300px; margin: 0 auto; }
+  .skills-bento { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+  .skills-header { flex-direction: column; align-items: flex-start; }
+  .projects-header { flex-direction: column; align-items: flex-start; }
+  .form-row { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .hero-ctas { flex-direction: column; }
+  .hero-ctas a { text-align: center; justify-content: center; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .modal-body { padding: 1.5rem; }
+  .modal-hero { height: 160px; font-size: 3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ MOBILE TOP BAR ══ -->
+<div class="mob-bar" id="mobBar">
+  <div class="mob-bar-name">Uwase <em>Jamirah</em></div>
+  <button class="mob-toggle" id="mobToggle" onclick="toggleMenu()">
+    <i class="fas fa-bars" id="mobIcon"></i>
+  </button>
+</div>
+<div class="mob-menu" id="mobMenu">
+  <a href="#home"     onclick="closeMob()"><i class="fas fa-home" style="width:20px;color:var(--gold)"></i> Home</a>
+  <a href="#about"    onclick="closeMob()"><i class="fas fa-user" style="width:20px;color:var(--gold)"></i> About</a>
+  <a href="#skills"   onclick="closeMob()"><i class="fas fa-palette" style="width:20px;color:var(--gold)"></i> Skills</a>
+  <a href="#projects" onclick="closeMob()"><i class="fas fa-th-large" style="width:20px;color:var(--gold)"></i> Projects</a>
+  <a href="#contact"  onclick="closeMob()"><i class="fas fa-envelope" style="width:20px;color:var(--gold)"></i> Contact</a>
+  <div class="mob-btns">
+    <a href="https://wa.me/250781543716" target="_blank" class="btn-primary" onclick="closeMob()"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a href="images/Jamirah UWASE CV.pdf" download class="btn-secondary" onclick="closeMob()"><i class="fas fa-download"></i> Download CV</a>
+  </div>
+</div>
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+  <div class="sidebar-profile">
+    <img src="images/upscalemedia-transformed.jpeg" alt="Uwase Jamirah" class="sidebar-photo"
+         onerror="this.style.display='none';document.getElementById('sidebarPlaceholder').style.display='flex'">
+    <div class="sidebar-photo-placeholder" id="sidebarPlaceholder" style="display:none">
+      <i class="fas fa-user"></i>
+    </div>
+    <span class="sidebar-name">Uwase Jamirah</span>
+    <span class="sidebar-role">Graphic Designer</span>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#home"     class="active"><i class="fas fa-home"></i> Home</a>
+    <a href="#about">   <i class="fas fa-user"></i> About</a>
+    <a href="#skills">  <i class="fas fa-palette"></i> Skills</a>
+    <a href="#projects"><i class="fas fa-th-large"></i> Projects</a>
+    <a href="#contact"> <i class="fas fa-envelope"></i> Contact</a>
+    <a href="https://wa.me/250781543716" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+  </nav>
+  <div class="sidebar-actions">
+    <a href="images/Jamirah UWASE CV.pdf" download class="sidebar-btn gold"><i class="fas fa-download"></i> Download CV</a>
+    <a href="https://www.alicecop.com/" target="_blank" class="sidebar-btn ghost"><i class="fas fa-star"></i> Alice Uwimana</a>
+  </div>
+</aside>
+
+<!-- ══ PROJECT MODAL ══ -->
+<div class="modal-overlay" id="modal" onclick="closeModalOut(event)">
+  <div class="modal">
+    <div class="modal-top-bar"></div>
+    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    <div class="modal-hero" id="mHero"></div>
+    <div class="modal-body">
+      <span class="modal-cat" id="mCat"></span>
+      <h2 id="mTitle"></h2>
+      <p id="mDesc"></p>
+      <div class="modal-tools" id="mTools"></div>
+      <div class="modal-actions">
+        <a href="#contact" class="btn-primary" onclick="closeModal()"><i class="fas fa-envelope"></i> Hire for This</a>
+        <a href="https://wa.me/250781543716" target="_blank" class="btn-secondary"><i class="fab fa-whatsapp"></i> Discuss Project</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ MAIN ══════════════════ -->
+<div class="main">
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>✦ UWASE JAMIRAH</span>
+    <span>✦ Graphic Designer · Kigali, Rwanda</span>
+    <span>✦ Trained by <a href="https://www.alicecop.com/" target="_blank">Alice Uwimana</a></span>
+    <span>✦ Branding · Visual Identity · Social Media · Print</span>
+    <span>✦ UWASE JAMIRAH</span>
+    <span>✦ Graphic Designer · Kigali, Rwanda</span>
+    <span>✦ Trained by <a href="https://www.alicecop.com/" target="_blank">Alice Uwimana</a></span>
+    <span>✦ Branding · Visual Identity · Social Media · Print</span>
+  </div>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="home">
+  <div class="hero-left">
+    <div class="hero-available">Open for Projects</div>
+    <h1 class="hero-name">
+      Bold Design.<br>
+      <em>Strategic</em><br>
+      <strong>Impact.</strong>
+    </h1>
+    <p class="hero-desc">
+      I <b>specialise</b> in creating clean, impactful, and memorable designs tailored to modern brands and audiences. Every <b>design</b> I create is driven by <b>intention, emotion, and attention</b> to detail.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary"><i class="fas fa-th-large"></i> View Projects</a>
+      <a href="images/Jamirah UWASE CV.pdf" download class="btn-secondary"><i class="fas fa-download"></i> Download CV</a>
+      <a href="https://www.alicecop.com/" target="_blank" class="btn-ghost-gold"><i class="fas fa-star"></i> Alice Uwimana</a>
+    </div>
+    <div class="hero-skills-strip">
+      <span class="skill-pill">Logo Design</span>
+      <span class="skill-pill">Brand Identity</span>
+      <span class="skill-pill">Social Media</span>
+      <span class="skill-pill">Typography</span>
+      <span class="skill-pill">Print Design</span>
+      <span class="skill-pill">Adobe Illustrator</span>
+      <span class="skill-pill">Canva Pro</span>
+      <span class="skill-pill">Photoshop</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-bg"></div>
+    <div class="hero-right-grid"></div>
+    <div class="hero-card">
+      <div class="hero-card-label">Core Skills</div>
+      <div class="hero-skill-item">
+        <div class="hero-skill-name"><i class="fas fa-pen-nib"></i> Brand Identity</div>
+        <div class="hero-skill-pct">90%</div>
+      </div>
+      <div class="hero-skill-bar"><div class="hero-skill-bar-fill" data-w="90"></div></div>
+      <div class="hero-skill-item">
+        <div class="hero-skill-name"><i class="fas fa-mobile-alt"></i> Social Media</div>
+        <div class="hero-skill-pct">88%</div>
+      </div>
+      <div class="hero-skill-bar"><div class="hero-skill-bar-fill" data-w="88"></div></div>
+      <div class="hero-skill-item">
+        <div class="hero-skill-name"><i class="fas fa-print"></i> Print Design</div>
+        <div class="hero-skill-pct">85%</div>
+      </div>
+      <div class="hero-skill-bar"><div class="hero-skill-bar-fill" data-w="85"></div></div>
+      <div class="hero-skill-item">
+        <div class="hero-skill-name"><i class="fas fa-palette"></i> Color Theory</div>
+        <div class="hero-skill-pct">87%</div>
+      </div>
+      <div class="hero-skill-bar" style="margin-bottom:0"><div class="hero-skill-bar-fill" data-w="87"></div></div>
+      <div class="hero-badge" style="position:static;margin-top:1.5rem;display:inline-block">
+        <strong>Kigali</strong>Rwanda — Available
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INSTITUTIONS ═══ -->
+<section id="institution">
+  <div class="container">
+    <div class="inst-label">Education & Training</div>
+    <div class="inst-grid">
+      <div class="inst-card reveal">
+        <div class="inst-badge">🎓 Training Institution</div>
+        <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg"
+             alt="Up Skills Hub"
+             class="inst-logo"
+             onerror="this.style.opacity='.3'">
+        <h3>Up Skills Hub</h3>
+        <p>Up Skills Hub empowers youth with practical IT training, internships, and professional career guidance. Located in Remera, Kigali — bridging the gap between education and real-world opportunity in Rwanda's growing tech economy.</p>
+        <a href="https://www.upskillshub.com/" target="_blank" class="inst-link">
+          Explore Up Skills Hub <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      <div class="inst-card reveal">
+        <div class="inst-badge">👩‍🎨 Lead Trainer</div>
+        <img src="https://www.alicecop.com/wp-content/uploads/2026/04/Alice-copy-Logo-9-1024x1024.png"
+             alt="Alice Uwimana"
+             class="inst-logo"
+             onerror="this.style.opacity='.3'">
+        <h3>Alice Uwimana</h3>
+        <p>Alice Uwimana is a digital skills trainer and creative professional who teaches practical, results-driven design. Her platform — Alice Copy — helps students learn real digital skills, build portfolios, and turn knowledge into income through hands-on projects.</p>
+        <a href="https://www.alicecop.com/" target="_blank" class="inst-link">
+          Visit Alice Uwimana <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUOTE BAND ═══ -->
+<div class="quote-band">
+  <div class="quote-inner reveal">
+    <span class="quote-mark">"</span>
+    <div class="quote-text">
+      Design Is How <em>I Make Sense of the World</em>
+      <p>Design became more than just a skill for me; it became a way to express thoughts and emotions I can't always put into words. I care deeply about creating work that feels honest — not just visually appealing, but meaningful and memorable. Even when I doubt myself or feel like I still have so much to learn, that same drive to grow is what keeps shaping me into a stronger creative every day.</p>
+    </div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScMG7St3ye7JU7viFJFU1mZdXQcbZDuZ9F9wBiByiVek5SCdQ/viewform"
+       target="_blank" class="quote-cta">
+      Don't wait for the right time — just Do it! <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo-col reveal">
+        <div class="about-accent-corner"></div>
+        <div class="about-accent-corner2"></div>
+        <div class="about-photo-outer">
+          <img src="images/upscalemedia-transformed.jpeg" alt="Uwase Jamirah"
+               onerror="this.style.display='none'">
+          <div class="about-photo-placeholder">
+            <i class="fas fa-user"></i>
+            <span>Add Your Photo</span>
+          </div>
+        </div>
+        <div class="about-stat-badge">
+          <strong>100%</strong>Creative Passion
+        </div>
+      </div>
+      <div class="about-content reveal">
+        <div class="eyebrow">Who I Am</div>
+        <h2>I am <em>Uwase Jamirah,</em></h2>
+        <p>I've always been the kind of person whose mind is constantly searching for <b>something new</b> — new ideas, new perspectives, new ways to create. Sometimes that curiosity makes me <b>restless</b>, but it's also one of my biggest strengths. It pushes me to <b>keep learning, improving, and stepping outside of what feels familiar</b>.</p>
+        <p>I pay attention to the small details most people <b>overlook</b>, because to me, those details are what make something <b>feel real, intentional, and alive.</b> Design became more than just a skill — it became a way to express <b>thoughts and emotions</b> I can't always put into words.</p>
+        <div class="skills-chips">
+          <span class="chip">Logo Design</span>
+          <span class="chip">Brand Identity</span>
+          <span class="chip">Social Media</span>
+          <span class="chip">Adobe Illustrator</span>
+          <span class="chip">Photoshop</span>
+          <span class="chip">Canva Pro</span>
+          <span class="chip">Color Theory</span>
+          <span class="chip">Typography</span>
+          <span class="chip">Print Design</span>
+        </div>
+        <a href="images/Jamirah UWASE CV.pdf" download class="btn-primary" style="width:fit-content">
+          <i class="fas fa-file-download"></i> Download My CV
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SKILLS ═══ -->
+<section id="skills">
+  <div class="container">
+    <div class="skills-header reveal">
+      <div>
+        <div class="eyebrow">Core Competencies</div>
+        <h2 class="section-title">Design <em>Skills</em></h2>
+      </div>
+      <p class="skills-subtitle">A craft built through intentional practice, real client work, and mentorship from industry professionals at Up Skills Hub.</p>
+    </div>
+    <div class="skills-bento">
+
+      <div class="skill-card reveal">
+        <span class="skill-card-icon">🎯</span>
+        <h4>Brand Identity Design</h4>
+        <p>Logo systems, brand guidelines, color palettes, and visual identity packages that communicate brand values consistently across all touchpoints.</p>
+        <div class="skill-bar-row"><span>Proficiency</span><span>90%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-w="90"></div></div>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="skill-card-icon">📱</span>
+        <h4>Social Media Creatives</h4>
+        <p>Eye-catching post series, campaign visuals, story sets, ad creatives, and launch graphics built for maximum engagement and brand recall.</p>
+        <div class="skill-bar-row"><span>Proficiency</span><span>88%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-w="88"></div></div>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="skill-card-icon">🖨️</span>
+        <h4>Print & Layout Design</h4>
+        <p>Professional flyers, posters, brochures, menus, and branded documents optimized for both print production and digital distribution.</p>
+        <div class="skill-bar-row"><span>Proficiency</span><span>85%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-w="85"></div></div>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="skill-card-icon">✍️</span>
+        <h4>Typography & Composition</h4>
+        <p>Strategic type pairings, grid-based layouts, and visual hierarchy that guide the reader's eye and communicate with clarity and elegance.</p>
+        <div class="skill-bar-row"><span>Proficiency</span><span>82%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-w="82"></div></div>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="skill-card-icon">🎨</span>
+        <h4>Color Theory & Mood</h4>
+        <p>Intentional color psychology applied to brand systems and campaigns that evoke the right emotions and create lasting impressions.</p>
+        <div class="skill-bar-row"><span>Proficiency</span><span>87%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-w="87"></div></div>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="skill-card-icon">📸</span>
+        <h4>Photo Editing & Mockups</h4>
+        <p>Professional photo retouching, compositing, and realistic mockup presentations that showcase design work in its best possible light.</p>
+        <div class="skill-bar-row"><span>Proficiency</span><span>80%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-w="80"></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROJECTS ═══ -->
+<section id="projects">
+  <div class="container">
+    <div class="projects-header reveal">
+      <div>
+        <div class="eyebrow">My Work</div>
+        <h2 class="section-title">Recent <em>Creations</em></h2>
+      </div>
+      <div class="projects-count">06 Projects</div>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card reveal" onclick="openModal(0)">
+        <div class="project-thumb">
+          <div class="project-thumb-inner">LOGO</div>
+          <div class="project-overlay"><button class="view-btn"><i class="fas fa-eye"></i> View</button></div>
+        </div>
+        <div class="project-body">
+          <span class="project-cat">Brand Identity System</span>
+          <h4>Modern Logo System</h4>
+          <p>Logo mark, wordmark, and full brand guidelines for a premium Kigali business.</p>
+          <div class="project-footer">
+            <button class="project-open-btn" onclick="event.stopPropagation();openModal(0)"><i class="fas fa-expand-alt"></i> Expand</button>
+            <span class="project-year">2024</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" onclick="openModal(1)">
+        <div class="project-thumb">
+          <div class="project-thumb-inner">SM</div>
+          <div class="project-overlay"><button class="view-btn"><i class="fas fa-eye"></i> View</button></div>
+        </div>
+        <div class="project-body">
+          <span class="project-cat">Social Media</span>
+          <h4>Instagram Campaign Kit</h4>
+          <p>10-post series with consistent visual language for a product launch campaign.</p>
+          <div class="project-footer">
+            <button class="project-open-btn" onclick="event.stopPropagation();openModal(1)"><i class="fas fa-expand-alt"></i> Expand</button>
+            <span class="project-year">2024</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" onclick="openModal(2)">
+        <div class="project-thumb">
+          <div class="project-thumb-inner">PTR</div>
+          <div class="project-overlay"><button class="view-btn"><i class="fas fa-eye"></i> View</button></div>
+        </div>
+        <div class="project-body">
+          <span class="project-cat">Poster Design</span>
+          <h4>Event Poster Series</h4>
+          <p>Bold typographic posters for a youth conference with high visual impact.</p>
+          <div class="project-footer">
+            <button class="project-open-btn" onclick="event.stopPropagation();openModal(2)"><i class="fas fa-expand-alt"></i> Expand</button>
+            <span class="project-year">2023</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" onclick="openModal(3)">
+        <div class="project-thumb">
+          <div class="project-thumb-inner">BRD</div>
+          <div class="project-overlay"><button class="view-btn"><i class="fas fa-eye"></i> View</button></div>
+        </div>
+        <div class="project-body">
+          <span class="project-cat">Branding</span>
+          <h4>Complete Brand Package</h4>
+          <p>Full identity system including stationery, digital assets, and brand manual.</p>
+          <div class="project-footer">
+            <button class="project-open-btn" onclick="event.stopPropagation();openModal(3)"><i class="fas fa-expand-alt"></i> Expand</button>
+            <span class="project-year">2023</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" onclick="openModal(4)">
+        <div class="project-thumb">
+          <div class="project-thumb-inner">FLY</div>
+          <div class="project-overlay"><button class="view-btn"><i class="fas fa-eye"></i> View</button></div>
+        </div>
+        <div class="project-body">
+          <span class="project-cat">Print</span>
+          <h4>Marketing Flyer Collection</h4>
+          <p>Multi-format flyer set for events, promotions, and awareness campaigns.</p>
+          <div class="project-footer">
+            <button class="project-open-btn" onclick="event.stopPropagation();openModal(4)"><i class="fas fa-expand-alt"></i> Expand</button>
+            <span class="project-year">2023</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal" onclick="openModal(5)">
+        <div class="project-thumb">
+          <div class="project-thumb-inner">AD</div>
+          <div class="project-overlay"><button class="view-btn"><i class="fas fa-eye"></i> View</button></div>
+        </div>
+        <div class="project-body">
+          <span class="project-cat">Ad Creative</span>
+          <h4>Digital Ad Set</h4>
+          <p>Facebook and Instagram ad creatives designed for conversion and brand recall.</p>
+          <div class="project-footer">
+            <button class="project-open-btn" onclick="event.stopPropagation();openModal(5)"><i class="fas fa-expand-alt"></i> Expand</button>
+            <span class="project-year">2022</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="eyebrow">Get In Touch</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:600;color:var(--white);margin-bottom:1rem;line-height:1.15;">
+          Let's Work <em style="font-style:italic;color:var(--gold)">Together</em>
+        </h2>
+        <p style="font-size:.95rem;color:var(--muted);line-height:1.8;margin-bottom:2rem;">
+          Looking for a graphic designer for your next project? Reach out — I'd love to connect and create something remarkable together.
+        </p>
+        <div class="contact-methods">
+          <a href="https://wa.me/250790170625" target="_blank" class="contact-method">
+            <div class="contact-method-icon wa"><i class="fab fa-whatsapp"></i></div>
+            <div><div class="contact-method-label">WhatsApp</div><div class="contact-method-val">+250 790 170 625</div></div>
+          </a>
+          <a href="https://www.upskillshub.com/" target="_blank" class="contact-method">
+            <div class="contact-method-icon"><i class="fas fa-globe"></i></div>
+            <div><div class="contact-method-label">Training</div><div class="contact-method-val">Up Skills Hub Website</div></div>
+          </a>
+          <a href="https://www.alicecop.com/" target="_blank" class="contact-method">
+            <div class="contact-method-icon"><i class="fas fa-star"></i></div>
+            <div><div class="contact-method-label">Trainer</div><div class="contact-method-val">Alice Uwimana — alicecop.com</div></div>
+          </a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLScMG7St3ye7JU7viFJFU1mZdXQcbZDuZ9F9wBiByiVek5SCdQ/viewform" target="_blank" class="contact-method">
+            <div class="contact-method-icon"><i class="fas fa-graduation-cap"></i></div>
+          
+          </a>
+          <a href="images/Jamirah UWASE CV.pdf" download class="contact-method">
+            <div class="contact-method-icon"><i class="fas fa-file-download"></i></div>
+            <div><div class="contact-method-label">More about me</div><div class="contact-method-val">Download CV</div></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap reveal">
+        <div class="form-row">
+          <div class="cf-group">
+            <label class="cf-label">First Name</label>
+            <input class="cf-input" type="text" id="cfFirst" placeholder="Jane">
+          </div>
+          <div class="cf-group">
+            <label class="cf-label">Last Name</label>
+            <input class="cf-input" type="text" id="cfLast" placeholder="Doe">
+          </div>
+        </div>
+        <div class="cf-group">
+          <label class="cf-label">Email Address</label>
+          <input class="cf-input" type="email" id="cfEmail" placeholder="jane@example.com">
+        </div>
+        <div class="cf-group">
+          <label class="cf-label">Project Type</label>
+          <input class="cf-input" type="text" id="cfType" placeholder="e.g. Logo Design, Branding, Social Media">
+        </div>
+        <div class="cf-group">
+          <label class="cf-label">Message</label>
+          <textarea class="cf-input" id="cfMsg" rows="5" placeholder="Tell me about your project..."></textarea>
+        </div>
+        <button class="cf-submit" onclick="sendWhatsApp()">
+          <i class="fab fa-whatsapp"></i> Send via WhatsApp
+        </button>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-brand-name">Uwase <em>Jamirah</em></span>
+        <p>Every project is an opportunity to learn, improve, and transform imagination into meaningful visual experiences that communicate with purpose and leave a lasting impression.</p>
+        <div class="footer-trained">
+          <span class="footer-trained-label">Trained & Mentored By</span>
+          <strong>Alice Uwimana — Up Skills Hub, Kigali Rwanda</strong>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a href="images/Jamirah UWASE CV.pdf" download>Download CV</a>
+      </div>
+      <div class="footer-col">
+        <h5>Programs</h5>
+        <a href="https://www.upskillshub.com/" target="_blank">Up Skills Hub</a>
+        <a href="https://www.alicecop.com/" target="_blank">Alice Uwimana</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScMG7St3ye7JU7viFJFU1mZdXQcbZDuZ9F9wBiByiVek5SCdQ/viewform" target="_blank">Enroll Now</a>
+        <a href="https://wa.me/250790170625" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Up Skills Hub Portfolio. Trained by <a href="https://www.alicecop.com/" target="_blank">Alice Uwimana</a>.</p>
+      <div class="footer-socials">
+        <a href="https://www.canva.com/projects" class="social-btn"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.canva.com/projects" class="social-btn"><i class="fab fa-behance"></i></a>
+        <a href="https://wa.me/250781543716" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScMG7St3ye7JU7viFJFU1mZdXQcbZDuZ9F9wBiByiVek5SCdQ/viewform"
+         target="_blank" class="footer-enroll">
+        <i class="fas fa-graduation-cap"></i> Enroll in This Course
+      </a>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /.main -->
+
+<script>
+/* ═══ PROJECT DATA ═══ */
+const projects = [
+  {
+    label:'LOGO',
+    bg:'linear-gradient(135deg,#111827,#1e2d4a)',
+    color:'#c9a84c',
+    cat:'Brand Identity',
+    title:'Modern Logo System',
+    desc:'A comprehensive logo design project for a premium Kigali-based business. The process included discovery workshops, competitor analysis, moodboard creation, and iterative sketching before digital execution in Adobe Illustrator. Final deliverables: primary logo mark, horizontal wordmark, stacked version, favicon, and a 20-page brand guidelines document covering typography, color system, safe zones, and misuse examples.',
+    tools:['Adobe Illustrator','Brand Strategy','Color Theory','Typography']
+  },
+  {
+    label:'SM',
+    bg:'linear-gradient(135deg,#1a0d00,#3d2000)',
+    color:'#e8c563',
+    cat:'Social Media',
+    title:'Instagram Campaign Kit',
+    desc:'A 10-post social media series for a product launch targeting young urban professionals in Rwanda. Each post uses a unified visual language — consistent grid pattern, recurring type treatments, and a bold color scheme — ensuring the feed looks cohesive at a glance. Exported in multiple sizes for Instagram Feed, Stories, and Reels thumbnails. Designed in Canva Pro with custom elements from Illustrator.',
+    tools:['Canva Pro','Adobe Illustrator','Visual Strategy','Content Planning']
+  },
+  {
+    label:'PTR',
+    bg:'linear-gradient(135deg,#060d18,#0d1f3a)',
+    color:'#8ab8e0',
+    cat:'Poster Design',
+    title:'Event Poster Series',
+    desc:'Three large-format event posters for a Kigali youth conference. The challenge was to communicate energy and urgency while maintaining legibility at both A1 print size and social media scale. Bold typographic choices from Bebas Neue and Playfair Display were paired with high-contrast photography overlays. Each poster variant conveyed a different thematic track: Innovation, Leadership, and Creativity.',
+    tools:['Adobe Photoshop','Adobe Illustrator','Print Layout','Typography']
+  },
+  {
+    label:'BRD',
+    bg:'linear-gradient(135deg,#100820,#26123c)',
+    color:'#c9a6e8',
+    cat:'Branding',
+    title:'Complete Brand Package',
+    desc:'A full-suite brand identity for a growing Rwandan startup: logo design, color system, typography hierarchy, business card, letterhead, email signature, branded social media templates, pitch deck template, and an 8-page brand manual. Delivered over a 4-week sprint with two rounds of feedback and final print-ready files in PDF, AI, and PNG formats.',
+    tools:['Adobe Illustrator','Adobe InDesign','Brand Manual','Print Design']
+  },
+  {
+    label:'FLY',
+    bg:'linear-gradient(135deg,#050d04,#0f2410)',
+    color:'#80c880',
+    cat:'Print Design',
+    title:'Marketing Flyer Collection',
+    desc:'A versatile marketing flyer collection for events, promotional offers, and awareness campaigns. Each flyer was designed in A4 and A5 formats with WhatsApp-ready digital exports and high-resolution print versions. The collection demonstrates adaptability across industries — from food & beverage promotions to tech event announcements — while maintaining strong visual hierarchy.',
+    tools:['Canva Pro','Adobe Illustrator','Print Layout','Color Theory']
+  },
+  {
+    label:'AD',
+    bg:'linear-gradient(135deg,#180404,#3a0808)',
+    color:'#e89090',
+    cat:'Ad Creative',
+    title:'Digital Ad Set',
+    desc:'Performance-focused ad creatives for Facebook and Instagram. Three creative concepts A/B tested: product-led visual, testimonial-style graphic, and offer-focused design. All optimized for 1080×1080 feed and 1080×1920 Stories format. Design decisions were informed by conversion principles — strong CTAs, benefit-led headlines, and minimal visual clutter to maximize click-through rates.',
+    tools:['Adobe Photoshop','Meta Ad Specs','Conversion Design','Canva Pro']
+  }
+];
+
+/* ═══ MODAL ═══ */
+function openModal(i) {
+  const p = projects[i];
+  const hero = document.getElementById('mHero');
+  hero.style.background = p.bg;
+  hero.style.color = p.color;
+  hero.textContent = p.label;
+  document.getElementById('mCat').textContent = p.cat;
+  document.getElementById('mTitle').textContent = p.title;
+  document.getElementById('mDesc').textContent = p.desc;
+  document.getElementById('mTools').innerHTML = p.tools.map(t => `<span class="modal-tool">${t}</span>`).join('');
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOut(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ═══ MOBILE MENU ═══ */
+function toggleMenu() {
+  const menu = document.getElementById('mobMenu');
+  const icon = document.getElementById('mobIcon');
+  const open = menu.classList.toggle('open');
+  icon.className = open ? 'fas fa-times' : 'fas fa-bars';
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeMob() {
+  document.getElementById('mobMenu').classList.remove('open');
+  document.getElementById('mobIcon').className = 'fas fa-bars';
+  document.body.style.overflow = '';
+}
+
+/* ═══ ACTIVE NAV ═══ */
+const secs = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.sidebar-nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 140) current = s.id; });
+  navAs.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+});
+
+/* ═══ SCROLL REVEAL + SKILL BARS ═══ */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => {
+        e.target.classList.add('visible');
+        e.target.querySelectorAll('.skill-bar-fill, .hero-skill-bar-fill').forEach(b => {
+          b.style.width = (b.dataset.w || '0') + '%';
+        });
+      }, i * 90);
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* Hero bar init on load */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.hero-skill-bar-fill').forEach(b => {
+      b.style.width = (b.dataset.w || '0') + '%';
+    });
+  }, 600);
+});
+
+/* ═══ WHATSAPP FORM ═══ */
+function sendWhatsApp() {
+  const name   = (document.getElementById('cfFirst').value + ' ' + document.getElementById('cfLast').value).trim() || 'a visitor';
+  const email  = document.getElementById('cfEmail').value || 'not provided';
+  const type   = document.getElementById('cfType').value || 'General Inquiry';
+  const msg    = document.getElementById('cfMsg').value.trim();
+  if (!msg) { alert('Please enter a message before sending.'); return; }
+  const text = `Hello Jamirah! 👋\n\nName: ${name}\nEmail: ${email}\nProject: ${type}\n\n${msg}`;
+  window.open('https://wa.me/250790170625?text=' + encodeURIComponent(text), '_blank');
+}
+</script>
+</body>
+</html>
