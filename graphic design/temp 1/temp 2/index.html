@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jane Doe — Graphic Designer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* ===== TOKENS ===== */
+    :root {
+      --charcoal: #1A1A2E;
+      --off-white: #F5F0E8;
+      --coral: #FF4D4D;
+      --gold: #C9A84C;
+      --smoke: #EDEAE3;
+      --mid-grey: #7A7A8C;
+      --light-text: #F5F0E8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background-color: var(--off-white);
+      color: var(--charcoal);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      background: rgba(26, 26, 46, 0.97);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%;
+      height: 64px;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--off-white);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--coral); }
+    .nav-links {
+      display: flex; gap: 2.2rem; list-style: none;
+    }
+    .nav-links a {
+      color: var(--smoke); text-decoration: none;
+      font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--coral); }
+    .nav-cta {
+      background: var(--coral); color: #fff;
+      padding: 8px 22px; border-radius: 2px;
+      font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; transition: background 0.25s;
+    }
+    .nav-cta:hover { background: #e03030; }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--off-white); border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none; position: fixed; top: 64px; left: 0; width: 100%;
+      background: var(--charcoal); z-index: 999;
+      flex-direction: column; align-items: center;
+      padding: 2rem 0; gap: 1.5rem;
+      border-top: 1px solid rgba(201,168,76,0.2);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--off-white); text-decoration: none;
+      font-size: 1rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .mobile-menu a:hover { color: var(--coral); }
+
+    /* ===== HERO ===== */
+    #home {
+      min-height: 100vh;
+      background: var(--charcoal);
+      display: flex; align-items: center;
+      padding: 100px 6% 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg-text {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(120px, 20vw, 260px);
+      font-weight: 900; color: rgba(255,255,255,0.03);
+      white-space: nowrap; pointer-events: none;
+      letter-spacing: -0.02em;
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .hero-tag::before {
+      content: ''; display: block; width: 28px; height: 2px; background: var(--gold);
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 900; color: var(--off-white);
+      line-height: 1.0; letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+    }
+    .hero-name .accent { color: var(--coral); font-style: italic; }
+    .hero-role {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--mid-grey); font-weight: 300;
+      letter-spacing: 0.05em; margin-bottom: 1.6rem;
+    }
+    .hero-desc {
+      font-size: 1rem; color: rgba(245,240,232,0.7);
+      line-height: 1.8; max-width: 460px; margin-bottom: 2.4rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--coral); color: #fff;
+      padding: 14px 32px; border-radius: 2px;
+      font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; transition: background 0.25s, transform 0.2s;
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: #e03030; transform: translateY(-2px); }
+    .btn-outline {
+      border: 1.5px solid var(--gold); color: var(--gold);
+      padding: 13px 32px; border-radius: 2px;
+      font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; transition: all 0.25s;
+      background: transparent;
+    }
+    .btn-outline:hover { background: var(--gold); color: var(--charcoal); }
+    .hero-image-wrap {
+      position: relative; display: flex; justify-content: center;
+    }
+    .hero-img-frame {
+      width: 100%; max-width: 420px;
+      aspect-ratio: 4/5; position: relative;
+    }
+    .hero-img-frame::before {
+      content: ''; position: absolute; top: -16px; right: -16px;
+      width: 100%; height: 100%;
+      border: 2px solid var(--coral); border-radius: 2px; z-index: 0;
+    }
+    .hero-img-frame img {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 2px; position: relative; z-index: 1;
+      display: block;
+    }
+    .hero-img-label {
+      position: absolute; bottom: -24px; left: 0;
+      background: var(--gold); color: var(--charcoal);
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 6px 16px; z-index: 2;
+    }
+    .hero-stats {
+      display: flex; gap: 2rem; margin-top: 2.8rem; flex-wrap: wrap;
+    }
+    .stat-item { text-align: left; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 900; color: var(--coral);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem; color: var(--mid-grey);
+      font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-top: 4px;
+    }
+
+    /* ===== SLASH DIVIDER (signature element) ===== */
+    .slash-divider {
+      width: 100%; height: 60px; overflow: hidden;
+      position: relative; background: var(--charcoal);
+    }
+    .slash-divider::after {
+      content: ''; position: absolute; bottom: 0; left: -5%;
+      width: 110%; height: 100%;
+      background: var(--off-white);
+      clip-path: polygon(0 100%, 100% 40%, 100% 100%);
+    }
+    .slash-divider.reverse { background: var(--off-white); }
+    .slash-divider.reverse::after { background: var(--charcoal); }
+    .slash-divider.dark-to-smoke::after { background: var(--smoke); }
+    .slash-divider.smoke-to-dark { background: var(--smoke); }
+    .slash-divider.smoke-to-dark::after { background: var(--charcoal); }
+
+    /* ===== SECTION GENERAL ===== */
+    .section {
+      padding: 90px 6%;
+    }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--coral);
+      margin-bottom: 1rem;
+    }
+    .section-eyebrow::before {
+      content: ''; width: 20px; height: 2px; background: var(--coral); display: block;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 700; line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--off-white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center; margin-top: 3rem;
+    }
+    .about-img-wrap { position: relative; }
+    .about-img-wrap img {
+      width: 100%; border-radius: 2px;
+      aspect-ratio: 3/4; object-fit: cover; display: block;
+    }
+    .about-badge {
+      position: absolute; bottom: -20px; right: -20px;
+      background: var(--coral); color: #fff;
+      width: 100px; height: 100px; border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-weight: 700; text-align: center;
+      font-size: 0.75rem; letter-spacing: 0.06em;
+      text-transform: uppercase; line-height: 1.3;
+    }
+    .about-badge strong { font-family: 'Playfair Display', serif; font-size: 1.6rem; }
+    .about-text p {
+      font-size: 1.05rem; color: #444; line-height: 1.85;
+      margin-bottom: 1.2rem;
+    }
+    .about-highlights {
+      display: flex; gap: 2rem; margin: 2rem 0; flex-wrap: wrap;
+    }
+    .highlight-item {
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .highlight-icon {
+      width: 36px; height: 36px; background: var(--gold);
+      border-radius: 2px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--charcoal); font-size: 1rem;
+    }
+    .highlight-label {
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--mid-grey);
+    }
+    .highlight-val {
+      font-size: 1rem; font-weight: 600; color: var(--charcoal);
+    }
+
+    /* ===== SKILLS ===== */
+    #skills { background: var(--charcoal); }
+    #skills .section-title { color: var(--off-white); }
+    #skills .section-eyebrow { color: var(--gold); }
+    #skills .section-eyebrow::before { background: var(--gold); }
+    .skills-lead {
+      color: rgba(245,240,232,0.6); font-size: 1rem;
+      line-height: 1.75; max-width: 600px; margin-top: 1rem;
+    }
+    .skills-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; margin-top: 3rem;
+    }
+    .skill-category-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--gold);
+      margin-bottom: 1.8rem; font-weight: 700;
+    }
+    .skill-bar-item { margin-bottom: 1.4rem; }
+    .skill-bar-top {
+      display: flex; justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .skill-name {
+      font-size: 0.88rem; font-weight: 500; color: var(--off-white);
+      letter-spacing: 0.04em;
+    }
+    .skill-pct { font-size: 0.82rem; color: var(--gold); font-weight: 600; }
+    .skill-bar-bg {
+      width: 100%; height: 4px; background: rgba(255,255,255,0.08);
+      border-radius: 2px; overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%; background: linear-gradient(90deg, var(--coral), var(--gold));
+      border-radius: 2px;
+      transition: width 1.2s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .tools-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1rem; margin-top: 3rem;
+    }
+    .tool-chip {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,168,76,0.25);
+      padding: 12px 16px; border-radius: 2px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.85rem; font-weight: 500; color: var(--off-white);
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .tool-chip:hover {
+      border-color: var(--gold); background: rgba(201,168,76,0.08);
+    }
+    .tool-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--coral); flex-shrink: 0;
+    }
+
+    /* ===== PROJECTS ===== */
+    #projects { background: var(--smoke); }
+    .projects-intro {
+      font-size: 1rem; color: var(--mid-grey); line-height: 1.75;
+      max-width: 600px; margin-top: 0.8rem;
+    }
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem; margin-top: 3rem;
+    }
+    .project-card {
+      background: var(--off-white); border-radius: 2px;
+      overflow: hidden;
+      border: 1px solid rgba(26,26,46,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(26,26,46,0.15);
+    }
+    .project-img-wrap {
+      width: 100%; aspect-ratio: 16/10; overflow: hidden;
+      position: relative; background: var(--smoke);
+    }
+    .project-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .project-card:hover .project-img-wrap img { transform: scale(1.05); }
+    .project-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #e8e3da, #d4cfc6);
+      font-size: 0.8rem; color: var(--mid-grey);
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .project-tag {
+      position: absolute; top: 14px; left: 14px;
+      background: var(--coral); color: #fff;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 1px;
+    }
+    .project-body { padding: 1.6rem; }
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--charcoal); margin-bottom: 0.5rem;
+    }
+    .project-desc {
+      font-size: 0.9rem; color: var(--mid-grey);
+      line-height: 1.7; margin-bottom: 1.2rem;
+    }
+    .project-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 1rem; border-top: 1px solid rgba(26,26,46,0.08);
+    }
+    .project-tech { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tech-tag {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--gold);
+      border: 1px solid var(--gold); padding: 3px 8px; border-radius: 1px;
+    }
+    .btn-project-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--charcoal); color: var(--off-white);
+      padding: 9px 18px; border-radius: 2px;
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; transition: background 0.25s;
+      white-space: nowrap;
+    }
+    .btn-project-link:hover { background: var(--coral); }
+    .btn-project-link svg { width: 12px; height: 12px; }
+
+    /* ===== CONTACT ===== */
+    #contact { background: var(--charcoal); }
+    #contact .section-title { color: var(--off-white); }
+    #contact .section-eyebrow { color: var(--gold); }
+    #contact .section-eyebrow::before { background: var(--gold); }
+    .contact-layout {
+      display: grid; grid-template-columns: 1fr 1.4fr;
+      gap: 5rem; margin-top: 3rem; align-items: start;
+    }
+    .contact-info-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; color: var(--off-white);
+      margin-bottom: 1rem; font-weight: 700;
+    }
+    .contact-info-text {
+      color: rgba(245,240,232,0.6); font-size: 1rem;
+      line-height: 1.8; margin-bottom: 2rem;
+    }
+    .contact-method {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 1.2rem;
+    }
+    .contact-method-icon {
+      width: 44px; height: 44px; border: 1.5px solid rgba(201,168,76,0.4);
+      border-radius: 2px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--gold); flex-shrink: 0;
+    }
+    .contact-method-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--mid-grey); display: block;
+    }
+    .contact-method-val {
+      font-size: 0.95rem; color: var(--off-white); font-weight: 500;
+    }
+    .wa-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #25D366; color: #fff;
+      padding: 14px 28px; border-radius: 2px;
+      font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; transition: background 0.25s, transform 0.2s;
+      margin-top: 1.8rem;
+    }
+    .wa-btn:hover { background: #1ebe5d; transform: translateY(-2px); }
+    .wa-btn svg { width: 20px; height: 20px; fill: #fff; }
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--mid-grey);
+    }
+    .form-group input, .form-group textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(201,168,76,0.2);
+      border-radius: 2px; padding: 12px 16px;
+      color: var(--off-white); font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.25s;
+      outline: none; resize: none;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--coral);
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder {
+      color: rgba(245,240,232,0.25);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn-send {
+      background: var(--coral); color: #fff;
+      border: none; padding: 14px 36px; border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.25s, transform 0.2s;
+      align-self: flex-start;
+    }
+    .btn-send:hover { background: #e03030; transform: translateY(-2px); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #0E0E1C; color: rgba(245,240,232,0.5);
+      padding: 60px 6% 30px;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+    .footer-brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 900;
+      color: var(--off-white); margin-bottom: 0.8rem;
+    }
+    .footer-brand-name span { color: var(--coral); }
+    .footer-brand-desc {
+      font-size: 0.9rem; line-height: 1.75; max-width: 280px;
+      margin-bottom: 1.5rem;
+    }
+    .footer-social { display: flex; gap: 10px; }
+    .social-icon {
+      width: 36px; height: 36px; border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 2px; display: flex; align-items: center; justify-content: center;
+      text-decoration: none; color: rgba(245,240,232,0.5);
+      font-size: 0.8rem; font-weight: 700;
+      transition: border-color 0.25s, color 0.25s;
+    }
+    .social-icon:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-col-title {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--off-white);
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .footer-col ul li a {
+      font-size: 0.88rem; color: rgba(245,240,232,0.5);
+      text-decoration: none; transition: color 0.25s;
+    }
+    .footer-col ul li a:hover { color: var(--gold); }
+
+    /* Alice Cop / Instructor Brand Section */
+    .alice-section {
+      margin-top: 2.5rem;
+      padding: 1.8rem 2rem;
+      background: rgba(201,168,76,0.06);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .alice-left {
+      display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap;
+    }
+    .alice-logo-wrap {
+      width: 56px; height: 56px; border-radius: 2px;
+      overflow: hidden; flex-shrink: 0;
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.05);
+    }
+    .alice-logo-wrap img {
+      width: 100%; height: 100%; object-fit: contain;
+    }
+    .alice-info {}
+    .alice-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 4px;
+    }
+    .alice-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--off-white); font-weight: 700;
+    }
+    .alice-desc {
+      font-size: 0.82rem; color: rgba(245,240,232,0.5); margin-top: 3px;
+    }
+    .alice-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1.5px solid var(--gold); color: var(--gold);
+      padding: 10px 22px; border-radius: 2px;
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; transition: all 0.25s;
+      white-space: nowrap;
+    }
+    .alice-btn:hover { background: var(--gold); color: var(--charcoal); }
+    .alice-btn svg { width: 14px; height: 14px; }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-copy { font-size: 0.82rem; }
+    .footer-copy a { color: var(--gold); text-decoration: none; }
+
+    /* ===== UTILITY ===== */
+    .text-coral { color: var(--coral); }
+    .mt-4 { margin-top: 1rem; }
+
+    /* ===== SCROLL ANIMATIONS ===== */
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-image-wrap { order: -1; }
+      .hero-img-frame { max-width: 320px; margin: 0 auto; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-img-wrap { max-width: 420px; }
+      .about-badge { right: 0; }
+      .skills-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .section { padding: 70px 5%; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .section { padding: 55px 5%; }
+      .hero-stats { gap: 1.2rem; }
+      .about-highlights { flex-direction: column; }
+      .tools-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .alice-section { flex-direction: column; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">Jane<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="images/cv.pdf" class="nav-cta" id="cvDownloadBtn" download>Download CV</a>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" onclick="closeMobile()">Home</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#skills" onclick="closeMobile()">Skills</a>
+  <a href="#projects" onclick="closeMobile()">Projects</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+  <a href="images/cv.pdf" class="btn-primary" download style="margin-top:0.5rem">Download CV</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="home">
+  <div class="hero-bg-text">DESIGN</div>
+  <div class="hero-inner">
+    <div class="hero-text fade-up">
+      <div class="hero-tag">Graphic Designer</div>
+      <h1 class="hero-name">Jane<br><span class="accent">Doe.</span></h1>
+      <p class="hero-role">Brand Identity · Visual Design · Motion Graphics</p>
+      <p class="hero-desc">I craft bold, intentional visuals that make brands impossible to ignore. From brand systems to digital experiences — every pixel tells a story.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-primary">View My Work</a>
+        <a href="images/cv.pdf" class="btn-outline" id="cvDownloadBtn2" download>Download CV</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">80+</div>
+          <div class="stat-label">Projects Done</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">40+</div>
+          <div class="stat-label">Happy Clients</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-image-wrap fade-up" style="transition-delay:0.2s">
+      <div class="hero-img-frame">
+        <!-- Replace src below with your photo -->
+        <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Jane Doe — Graphic Designer"/>
+        <span class="hero-img-label">Available for Work</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="slash-divider"></div>
+
+<!-- ===== ABOUT ===== -->
+<section id="about" class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">About Me</div>
+    <h2 class="section-title">Passion Meets<br><span class="text-coral">Precision</span></h2>
+    <div class="about-grid">
+      <div class="about-img-wrap fade-up">
+        <!-- Replace src below with your photo -->
+        <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Jane Doe"/>
+        <div class="about-badge"><strong>6+</strong>Years<br>Design</div>
+      </div>
+      <div class="about-text fade-up" style="transition-delay:0.15s">
+        <p>Hi, I'm <strong>Jane Doe</strong> — a graphic designer obsessed with the space where strategy and aesthetics collide. I believe great design isn't just beautiful; it communicates, converts, and connects.</p>
+        <p>With over six years working with startups, agencies, and global brands, I've developed a sharp eye for what makes visual communication truly land. My work spans brand identities, packaging, editorial design, and digital experiences.</p>
+        <p>When I'm not pushing pixels, I'm mentoring emerging designers, exploring type history, or hunting down the perfect espresso.</p>
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <div class="highlight-icon">🎓</div>
+            <div>
+              <div class="highlight-label">Education</div>
+              <div class="highlight-val">BFA in Visual Communication</div>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">📍</div>
+            <div>
+              <div class="highlight-label">Location</div>
+              <div class="highlight-val">Kigali, Rwanda</div>
+            </div>
+          </div>
+        </div>
+        <a href="images/cv.pdf" class="btn-primary" download style="text-decoration:none;display:inline-block">
+          ↓ &nbsp;Download CV
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="slash-divider reverse"></div>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills" class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Skills</div>
+    <h2 class="section-title">What I Bring<br>to the Table</h2>
+    <p class="skills-lead">A versatile design toolkit honed over years of real-world projects — from concept sketching to final delivery.</p>
+    <div class="skills-layout">
+      <div class="fade-up">
+        <div class="skill-category-title">Design Proficiency</div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-name">Brand Identity Design</span><span class="skill-pct">95%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="95%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-name">Typography &amp; Layout</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-name">UI/UX Design</span><span class="skill-pct">82%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="82%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-name">Motion Graphics</span><span class="skill-pct">78%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="78%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-name">Packaging Design</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-name">Social Media Graphics</span><span class="skill-pct">92%</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="92%"></div></div>
+        </div>
+      </div>
+      <div class="fade-up" style="transition-delay:0.15s">
+        <div class="skill-category-title">Tools &amp; Software</div>
+        <div class="tools-grid">
+          <div class="tool-chip"><span class="tool-dot"></span>Adobe Photoshop</div>
+          <div class="tool-chip"><span class="tool-dot"></span>Adobe Illustrator</div>
+          <div class="tool-chip"><span class="tool-dot"></span>Adobe InDesign</div>
+          <div class="tool-chip"><span class="tool-dot"></span>Adobe After Effects</div>
+          <div class="tool-chip"><span class="tool-dot"></span>Figma</div>
+          <div class="tool-chip"><span class="tool-dot"></span>Canva Pro</div>
+          <div class="tool-chip"><span class="tool-dot"></span>Procreate</div>
+          <div class="tool-chip"><span class="tool-dot"></span>Blender</div>
+          <div class="tool-chip"><span class="tool-dot"></span>CorelDRAW</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="slash-divider smoke-to-dark" style="background:var(--charcoal)">
+  <style>.slash-divider.smoke-to-dark::after{background:var(--smoke);}</style>
+</div>
+
+<!-- ===== PROJECTS ===== -->
+<section id="projects" class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Portfolio</div>
+    <h2 class="section-title">Selected <span class="text-coral">Works</span></h2>
+    <p class="projects-intro">A curated selection of projects that showcase the range and depth of my design practice. Click any project to explore it further.</p>
+    <div class="projects-grid">
+
+      <!-- PROJECT 1 -->
+      <div class="project-card fade-up">
+        <div class="project-img-wrap">
+          <!-- Replace src with your project image -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Brand Identity Project"/>
+          <span class="project-tag">Branding</span>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">Nova Branding System</h3>
+          <p class="project-desc">Complete visual identity for a tech startup — logo, color system, typography, brand guidelines and stationery.</p>
+          <div class="project-footer">
+            <div class="project-tech">
+              <span class="tech-tag">Illustrator</span>
+              <span class="tech-tag">Figma</span>
+            </div>
+            <a href="#" target="_blank" rel="noopener" class="btn-project-link">
+              View
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="project-card fade-up" style="transition-delay:0.1s">
+        <div class="project-img-wrap">
+          <!-- Replace src with your project image -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Packaging Design"/>
+          <span class="project-tag">Packaging</span>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">Botanica Packaging</h3>
+          <p class="project-desc">Organic skincare line packaging — botanical illustration, label design, and unboxing experience for a luxury wellness brand.</p>
+          <div class="project-footer">
+            <div class="project-tech">
+              <span class="tech-tag">Photoshop</span>
+              <span class="tech-tag">InDesign</span>
+            </div>
+            <a href="#" target="_blank" rel="noopener" class="btn-project-link">
+              View
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 3 -->
+      <div class="project-card fade-up" style="transition-delay:0.2s">
+        <div class="project-img-wrap">
+          <!-- Replace src with your project image -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Social Media Campaign"/>
+          <span class="project-tag">Social Media</span>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">Pulse Campaign Kit</h3>
+          <p class="project-desc">Full social media content system for a fitness brand — templates, stories, reels covers and ad creatives across platforms.</p>
+          <div class="project-footer">
+            <div class="project-tech">
+              <span class="tech-tag">Canva</span>
+              <span class="tech-tag">After Effects</span>
+            </div>
+            <a href="#" target="_blank" rel="noopener" class="btn-project-link">
+              View
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 4 -->
+      <div class="project-card fade-up" style="transition-delay:0.1s">
+        <div class="project-img-wrap">
+          <!-- Replace src with your project image -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="UI Design"/>
+          <span class="project-tag">UI Design</span>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">FinTrack App UI</h3>
+          <p class="project-desc">Mobile app UI design for a personal finance tracker — clean dashboard, intuitive flows, and a cohesive design system.</p>
+          <div class="project-footer">
+            <div class="project-tech">
+              <span class="tech-tag">Figma</span>
+              <span class="tech-tag">Protopie</span>
+            </div>
+            <a href="#" target="_blank" rel="noopener" class="btn-project-link">
+              View
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 5 -->
+      <div class="project-card fade-up" style="transition-delay:0.2s">
+        <div class="project-img-wrap">
+          <!-- Replace src with your project image -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Magazine Layout"/>
+          <span class="project-tag">Editorial</span>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">ÉLAN Magazine Redesign</h3>
+          <p class="project-desc">Full editorial redesign for a lifestyle magazine — masthead, grid system, typographic hierarchy, and 48-page layout.</p>
+          <div class="project-footer">
+            <div class="project-tech">
+              <span class="tech-tag">InDesign</span>
+              <span class="tech-tag">Photoshop</span>
+            </div>
+            <a href="#" target="_blank" rel="noopener" class="btn-project-link">
+              View
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 6 -->
+      <div class="project-card fade-up" style="transition-delay:0.3s">
+        <div class="project-img-wrap">
+          <!-- Replace src with your project image -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Poster Design"/>
+          <span class="project-tag">Print</span>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">Afro Jazz Festival Poster</h3>
+          <p class="project-desc">Event identity and print collateral for an annual music festival — poster, ticket, wristband, and signage system.</p>
+          <div class="project-footer">
+            <div class="project-tech">
+              <span class="tech-tag">Illustrator</span>
+              <span class="tech-tag">Photoshop</span>
+            </div>
+            <a href="#" target="_blank" rel="noopener" class="btn-project-link">
+              View
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="slash-divider" style="background:var(--smoke)">
+  <style>.slash-divider:last-of-type::after{}</style>
+</div>
+<!-- inline fix for this specific divider -->
+<div style="width:100%;height:60px;overflow:hidden;position:relative;background:var(--smoke)">
+  <div style="position:absolute;bottom:0;left:-5%;width:110%;height:100%;background:var(--charcoal);clip-path:polygon(0 100%,100% 40%,100% 100%)"></div>
+</div>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Get In Touch</div>
+    <h2 class="section-title">Let's Create<br>Something <span style="color:var(--coral);font-style:italic">Great</span></h2>
+    <div class="contact-layout">
+      <div class="fade-up">
+        <h3 class="contact-info-title">Open for<br>Collaborations</h3>
+        <p class="contact-info-text">Whether you need a full brand identity, a single key visual, or a long-term creative partner — I'd love to hear about your project. Let's make something worth talking about.</p>
+        <div class="contact-method">
+          <div class="contact-method-icon">✉</div>
+          <div>
+            <span class="contact-method-label">Email</span>
+            <span class="contact-method-val">janedoe@email.com</span>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-method-icon">📞</div>
+          <div>
+            <span class="contact-method-label">Phone</span>
+            <span class="contact-method-val">+250 700 000 000</span>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-method-icon">📍</div>
+          <div>
+            <span class="contact-method-label">Location</span>
+            <span class="contact-method-val">Kigali, Rwanda</span>
+          </div>
+        </div>
+        <!-- WhatsApp Button — replace 250700000000 with your number -->
+        <a href="https://wa.me/250700000000?text=Hi%20Jane!%20I%20saw%20your%20portfolio%20and%20I%27d%20love%20to%20discuss%20a%20project." target="_blank" rel="noopener" class="wa-btn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+      <div class="fade-up" style="transition-delay:0.15s">
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" placeholder="Your first name"/>
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" placeholder="Your last name"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="your@email.com"/>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" placeholder="What's this about?"/>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" rows="5" placeholder="Tell me about your project..."></textarea>
+          </div>
+          <button type="button" class="btn-send" onclick="sendMessage()">Send Message →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-col">
+        <div class="footer-brand-name">Jane<span>.</span></div>
+        <p class="footer-brand-desc">Graphic designer creating bold, strategic visuals that help brands stand out and connect with their audiences.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon" aria-label="Instagram">In</a>
+          <a href="#" class="social-icon" aria-label="Behance">Be</a>
+          <a href="#" class="social-icon" aria-label="Dribbble">Dr</a>
+          <a href="#" class="social-icon" aria-label="LinkedIn">Li</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Navigation</div>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Services</div>
+        <ul>
+          <li><a href="#projects">Brand Identity</a></li>
+          <li><a href="#projects">Packaging Design</a></li>
+          <li><a href="#projects">Social Media</a></li>
+          <li><a href="#projects">UI/UX Design</a></li>
+          <li><a href="#projects">Print &amp; Editorial</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <ul>
+          <li><a href="mailto:janedoe@email.com">janedoe@email.com</a></li>
+          <li><a href="tel:+250700000000">+250 700 000 000</a></li>
+          <li><a href="https://wa.me/250700000000" target="_blank">WhatsApp</a></li>
+          <li><a href="images/cv.pdf" download>Download CV</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Alice Cop Trainer Brand Section -->
+    <div class="alice-section">
+      <div class="alice-left">
+        <div class="alice-logo-wrap">
+          <!-- Alice Cop logo placeholder -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Alice Cop Trainer"/>
+        </div>
+        <div class="alice-info">
+          <div class="alice-label">Trained &amp; Mentored By</div>
+          <div class="alice-name">Alice Cop — Creative Trainer</div>
+          <div class="alice-desc">Empowering designers through world-class training programs &amp; mentorship</div>
+        </div>
+      </div>
+      <a href="https://www.alicecop.com/" target="_blank" rel="noopener" class="alice-btn">
+        Visit Alice Cop
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Jane Doe. All rights reserved. Trained by <a href="https://www.alicecop.com/" target="_blank">Alice Cop</a>.</div>
+      <a href="images/cv.pdf" class="btn-primary" style="font-size:0.78rem;padding:10px 22px" download>Download CV</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Hamburger toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMobile() {
+    mobileMenu.classList.remove('open');
+  }
+
+  // Scroll animations
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Animate skill bars when they become visible
+        entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+          bar.style.width = bar.getAttribute('data-width');
+        });
+      }
+    });
+  }, { threshold: 0.12 });
+  fadeEls.forEach(el => observer.observe(el));
+
+  // Initialize skill bars at 0
+  document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+    bar.style.width = '0%';
+  });
+
+  // Simple form send handler
+  function sendMessage() {
+    const name = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    if (!name || !email || !message) {
+      alert('Please fill in your name, email, and message.');
+      return;
+    }
+    // WhatsApp fallback — replace 250700000000 with actual number
+    const waNum = '250700000000';
+    const text = encodeURIComponent(`Hi Jane! My name is ${name} (${email}).\n\n${message}`);
+    window.open(`https://wa.me/${waNum}?text=${text}`, '_blank');
+  }
+
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 40) {
+      nav.style.boxShadow = '0 4px 24px rgba(0,0,0,0.3)';
+    } else {
+      nav.style.boxShadow = 'none';
+    }
+  });
+</script>
+</body>
+</html>
