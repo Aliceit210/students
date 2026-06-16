@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sam Rivera | Project Management Specialist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* ===== DESIGN TOKENS ===== */
+    :root {
+      --black:   #080C14;
+      --deep:    #0D1520;
+      --slate:   #1E2D3D;
+      --emerald: #00D4AA;
+      --amber:   #F59E0B;
+      --red-tag: #EF4444;
+      --mist:    #E8F4F8;
+      --muted:   #7A93A8;
+      --border:  rgba(0,212,170,0.12);
+      --card:    #111B27;
+      --white:   #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--mist);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    h1,h2,h3,h4,h5 {
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.15;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      background: rgba(8,12,20,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      height: 66px;
+      display: flex; align-items: center;
+      padding: 0 5%;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--white);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-brand-badge {
+      width: 10px; height: 10px;
+      background: var(--emerald);
+      border-radius: 2px;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100%{ opacity:1; transform:scale(1); }
+      50%{ opacity:0.5; transform:scale(0.7); }
+    }
+    .nav-links {
+      display: flex; gap: 2rem; align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 500;
+      color: var(--muted);
+      transition: color 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .nav-links a:hover { color: var(--emerald); }
+    .nav-right { display: flex; gap: 0.8rem; align-items: center; }
+    .btn-nav-cv {
+      background: transparent;
+      border: 1.5px solid var(--emerald);
+      color: var(--emerald);
+      padding: 7px 18px; border-radius: 6px;
+      font-size: 0.82rem; font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn-nav-cv:hover { background: var(--emerald); color: var(--black); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; border: none; background: none;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--mist); border-radius: 2px;
+    }
+    .mob-nav {
+      display: none; position: fixed;
+      top: 66px; left: 0; width: 100%;
+      background: var(--deep);
+      border-bottom: 1px solid var(--border);
+      flex-direction: column; align-items: center;
+      padding: 1.5rem; gap: 1.2rem; z-index: 999;
+    }
+    .mob-nav.open { display: flex; }
+    .mob-nav a { font-size: 1rem; font-weight: 500; color: var(--muted); }
+    .mob-nav a:hover { color: var(--emerald); }
+
+    /* ===== BTN HELPERS ===== */
+    .btn-primary {
+      background: var(--emerald); color: var(--black);
+      padding: 12px 30px; border-radius: 8px;
+      font-weight: 700; font-size: 0.9rem;
+      display: inline-block;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: #00b894; transform: translateY(-2px); }
+    .btn-ghost {
+      border: 1.5px solid var(--muted); color: var(--mist);
+      padding: 11px 28px; border-radius: 8px;
+      font-weight: 600; font-size: 0.9rem;
+      display: inline-block;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--emerald); color: var(--emerald); }
+
+    /* ===== HERO ===== */
+    #home {
+      min-height: 100vh;
+      padding: 120px 5% 80px;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    #home::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(0,212,170,0.07), transparent),
+        radial-gradient(ellipse 40% 40% at 30% 80%, rgba(245,158,11,0.05), transparent);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+      width: 100%; max-width: 1200px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--emerald); margin-bottom: 1.1rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 20px; height: 2px; background: var(--emerald);
+    }
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 700; color: var(--white);
+      letter-spacing: -0.02em; margin-bottom: 0.4rem;
+    }
+    .hero-name .em { color: var(--emerald); }
+    .hero-sub {
+      font-size: 1rem; color: var(--muted);
+      margin-bottom: 1.3rem; letter-spacing: 0.02em;
+    }
+    .hero-desc {
+      font-size: 1rem; color: rgba(232,244,248,0.68);
+      line-height: 1.8; max-width: 480px; margin-bottom: 2rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 2.8rem; flex-wrap: wrap;
+    }
+    .h-stat-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem; font-weight: 700; color: var(--emerald);
+      line-height: 1;
+    }
+    .h-stat-lbl {
+      font-size: 0.72rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin-top: 3px;
+    }
+
+    /* SIGNATURE: Kanban board in hero */
+    .kanban-board {
+      display: flex; gap: 10px;
+      width: 100%; max-width: 460px; margin: 0 auto;
+    }
+    .kb-col {
+      flex: 1;
+      background: rgba(30,45,61,0.6);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .kb-col.visible { opacity: 1; transform: translateY(0); }
+    .kb-col:nth-child(1){ transition-delay: 0.2s; }
+    .kb-col:nth-child(2){ transition-delay: 0.45s; }
+    .kb-col:nth-child(3){ transition-delay: 0.7s; }
+    .kb-col-title {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .kb-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+    }
+    .d-amber { background: var(--amber); }
+    .d-blue  { background: #60A5FA; }
+    .d-em    { background: var(--emerald); }
+    .kb-card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 7px; padding: 9px 10px;
+      margin-bottom: 7px; font-size: 0.72rem;
+      color: rgba(232,244,248,0.85); line-height: 1.4;
+    }
+    .kb-card:last-child { margin-bottom: 0; }
+    .kb-card-tag {
+      display: inline-block;
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.06em;
+      padding: 2px 6px; border-radius: 3px;
+      margin-bottom: 4px;
+    }
+    .tag-a { background: rgba(245,158,11,0.18); color: var(--amber); }
+    .tag-b { background: rgba(96,165,250,0.18); color: #60A5FA; }
+    .tag-c { background: rgba(0,212,170,0.18); color: var(--emerald); }
+    .tag-r { background: rgba(239,68,68,0.18); color: var(--red-tag); }
+    .kb-avatar-row {
+      display: flex; gap: 3px; margin-top: 6px;
+    }
+    .kb-av {
+      width: 16px; height: 16px; border-radius: 50%;
+      font-size: 0.5rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+    }
+    .av1 { background: #8B5CF6; }
+    .av2 { background: #EC4899; }
+    .av3 { background: #0EA5E9; }
+
+    /* ===== SECTION ===== */
+    .section { padding: 90px 5%; }
+    .sec-inner { max-width: 1200px; margin: 0 auto; }
+    .sec-eye {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--emerald); margin-bottom: 0.8rem;
+    }
+    .sec-eye::before {
+      content: ''; width: 14px; height: 2px; background: var(--emerald);
+    }
+    .sec-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.7rem);
+      font-weight: 700; color: var(--white);
+      letter-spacing: -0.015em;
+    }
+    .sec-title .em { color: var(--emerald); }
+    .divider { width: 100%; height: 1px; background: var(--border); }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--deep); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center; margin-top: 3rem;
+    }
+    .about-img-wrap { position: relative; }
+    .about-img-wrap img {
+      width: 100%; border-radius: 12px;
+      aspect-ratio: 3/4; object-fit: cover;
+      border: 1px solid var(--border);
+    }
+    .about-exp-pill {
+      position: absolute; bottom: -16px; right: -16px;
+      background: var(--emerald); color: var(--black);
+      width: 88px; height: 88px; border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem; font-weight: 700; text-align: center;
+      line-height: 1.3; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .about-exp-pill strong { font-size: 1.4rem; font-weight: 700; display: block; }
+    .about-certs {
+      position: absolute; top: -14px; left: -14px;
+      background: var(--amber); color: var(--black);
+      padding: 6px 12px; border-radius: 6px;
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .about-text p {
+      font-size: 1rem; color: rgba(232,244,248,0.7);
+      line-height: 1.82; margin-bottom: 1.1rem;
+    }
+    .about-info-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      margin: 1.4rem 0;
+    }
+    .about-info-cell { }
+    .about-info-lbl {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 3px;
+    }
+    .about-info-val { font-size: 0.93rem; font-weight: 600; color: var(--white); }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 1.8rem; }
+    .tag-item {
+      background: rgba(0,212,170,0.08);
+      border: 1px solid rgba(0,212,170,0.2);
+      color: var(--emerald);
+      font-size: 0.76rem; font-weight: 600;
+      padding: 4px 12px; border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ===== SKILLS ===== */
+    #skills { background: var(--black); }
+    .skills-lead { color: rgba(232,244,248,0.6); font-size: 1rem; line-height: 1.7; max-width: 580px; margin-top: 0.7rem; }
+    .skills-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3.5rem; margin-top: 3rem;
+    }
+    .skill-grp-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 700; color: var(--amber);
+      margin-bottom: 1.6rem;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .skill-grp-title::after {
+      content: ''; flex: 1; height: 1px;
+      background: rgba(245,158,11,0.2);
+    }
+    .skill-item { margin-bottom: 1.3rem; }
+    .skill-row {
+      display: flex; justify-content: space-between; margin-bottom: 7px;
+    }
+    .skill-nm {
+      font-size: 0.85rem; font-weight: 600; color: var(--mist);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .skill-badge {
+      font-size: 0.6rem; padding: 2px 6px; border-radius: 3px; font-weight: 700;
+    }
+    .sb-pm  { background: rgba(245,158,11,0.2); color: var(--amber); }
+    .sb-ag  { background: rgba(0,212,170,0.15); color: var(--emerald); }
+    .sb-tl  { background: rgba(96,165,250,0.15); color: #60A5FA; }
+    .skill-pct { font-size: 0.8rem; color: var(--emerald); font-weight: 700; font-family: 'Space Grotesk', sans-serif; }
+    .skill-bar-bg {
+      width: 100%; height: 5px;
+      background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%; border-radius: 3px;
+      transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .bf-em   { background: linear-gradient(90deg, var(--emerald), #80FFE8); }
+    .bf-am   { background: linear-gradient(90deg, var(--amber), #FCD34D); }
+    .bf-blue { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
+
+    /* Tool cards grid */
+    .tool-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 0.8rem; margin-top: 0.5rem;
+    }
+    .tool-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 10px;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      transition: border-color 0.2s, background 0.2s; cursor: default;
+    }
+    .tool-card:hover { border-color: var(--emerald); background: rgba(0,212,170,0.05); }
+    .tool-icon {
+      width: 32px; height: 32px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 800; color: #fff;
+    }
+    .ti-jira  { background: #0052CC; }
+    .ti-asana { background: #FC636B; }
+    .ti-trello{ background: #0052CC; }
+    .ti-ms    { background: #7B83EB; }
+    .ti-notion{ background: #000; border: 1px solid #444; }
+    .ti-slack { background: #4A154B; }
+    .ti-click { background: #7B68EE; }
+    .ti-mon   { background: #F62B54; }
+    .ti-conf  { background: #0052CC; }
+    .tool-lbl { font-size: 0.63rem; color: var(--muted); text-align: center; }
+
+    /* ===== PROJECTS ===== */
+    #projects { background: var(--deep); }
+    .projects-lead { color: rgba(232,244,248,0.6); font-size: 1rem; max-width: 560px; margin-top: 0.7rem; }
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px,1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .proj-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .proj-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0,212,170,0.35);
+      box-shadow: 0 14px 40px rgba(0,212,170,0.07);
+    }
+    .proj-img {
+      width: 100%; aspect-ratio: 16/9;
+      overflow: hidden; position: relative;
+      background: rgba(255,255,255,0.03);
+    }
+    .proj-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .proj-card:hover .proj-img img { transform: scale(1.04); }
+    .proj-type {
+      position: absolute; top: 12px; left: 12px;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 4px;
+    }
+    .proj-body { padding: 1.3rem; }
+    .proj-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem; font-weight: 700; color: var(--white);
+      margin-bottom: 0.45rem;
+    }
+    .proj-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.65; margin-bottom: 1rem; }
+    .proj-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 0.8rem; border-top: 1px solid var(--border);
+      flex-wrap: wrap; gap: 0.5rem;
+    }
+    .proj-tools { display: flex; gap: 5px; flex-wrap: wrap; }
+    .p-chip {
+      font-size: 0.62rem; font-weight: 700;
+      padding: 3px 8px; border-radius: 3px;
+    }
+    .pc-em  { background: rgba(0,212,170,0.14); color: var(--emerald); }
+    .pc-am  { background: rgba(245,158,11,0.14); color: var(--amber); }
+    .pc-bl  { background: rgba(96,165,250,0.14); color: #60A5FA; }
+    .pc-rd  { background: rgba(239,68,68,0.14); color: var(--red-tag); }
+    .btn-open {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--emerald); color: var(--black);
+      padding: 8px 16px; border-radius: 6px;
+      font-size: 0.74rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      transition: background 0.2s; white-space: nowrap;
+    }
+    .btn-open:hover { background: #00b894; }
+    .btn-open svg { width: 11px; height: 11px; }
+
+    /* ===== CONTACT ===== */
+    #contact { background: var(--black); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.3fr;
+      gap: 4rem; margin-top: 3rem; align-items: start;
+    }
+    .contact-intro-text { color: rgba(232,244,248,0.65); font-size: 1rem; line-height: 1.8; margin-bottom: 2rem; }
+    .c-method { display: flex; align-items: center; gap: 13px; margin-bottom: 1.1rem; }
+    .c-icon {
+      width: 42px; height: 42px; border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--emerald); font-size: 1rem; flex-shrink: 0;
+    }
+    .c-lbl {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); display: block;
+    }
+    .c-val { font-size: 0.93rem; font-weight: 500; color: var(--mist); }
+    .wa-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #25D366; color: #fff;
+      padding: 13px 26px; border-radius: 8px;
+      font-size: 0.87rem; font-weight: 700;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.2s; margin-top: 1.8rem;
+    }
+    .wa-cta:hover { background: #1ebe5d; transform: translateY(-2px); }
+    .wa-cta svg { width: 20px; height: 20px; fill: #fff; }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .f-group { display: flex; flex-direction: column; gap: 5px; }
+    .f-group label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .f-group input,
+    .f-group textarea,
+    .f-group select {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 7px; padding: 11px 14px;
+      color: var(--mist);
+      font-family: 'Inter', sans-serif; font-size: 0.92rem;
+      outline: none; resize: none;
+      transition: border-color 0.2s;
+    }
+    .f-group input:focus,
+    .f-group textarea:focus,
+    .f-group select:focus { border-color: var(--emerald); }
+    .f-group input::placeholder,
+    .f-group textarea::placeholder { color: rgba(232,244,248,0.2); }
+    .f-group select option { background: var(--deep); }
+    .btn-send {
+      background: var(--emerald); color: var(--black);
+      border: none; padding: 13px 34px; border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; cursor: pointer;
+      align-self: flex-start;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-send:hover { background: #00b894; transform: translateY(-2px); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #040810;
+      border-top: 1px solid var(--border);
+      padding: 56px 5% 28px;
+    }
+    .ft-inner { max-width: 1200px; margin: 0 auto; }
+    .ft-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2.5rem; padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .ft-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem; font-weight: 700; color: var(--white);
+      display: flex; align-items: center; gap: 8px; margin-bottom: 0.8rem;
+    }
+    .ft-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.75; max-width: 260px; margin-bottom: 1.3rem; }
+    .ft-socials { display: flex; gap: 8px; }
+    .ft-soc {
+      width: 34px; height: 34px; border-radius: 6px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700; color: var(--muted);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .ft-soc:hover { border-color: var(--emerald); color: var(--emerald); }
+    .ft-col-hd {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--white); margin-bottom: 1rem;
+    }
+    .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .ft-col ul li a { font-size: 0.87rem; color: var(--muted); transition: color 0.2s; }
+    .ft-col ul li a:hover { color: var(--emerald); }
+
+    /* Alice Cop box */
+    .alice-box {
+      margin-top: 2rem;
+      background: rgba(0,212,170,0.05);
+      border: 1px solid rgba(0,212,170,0.18);
+      border-radius: 10px; padding: 1.3rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.2rem;
+    }
+    .alice-left { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .alice-logo {
+      width: 50px; height: 50px; border-radius: 8px;
+      border: 1px solid rgba(0,212,170,0.2);
+      overflow: hidden; flex-shrink: 0;
+      background: rgba(255,255,255,0.04);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .alice-logo img { width: 100%; height: 100%; object-fit: contain; }
+    .alice-lbl {
+      font-size: 0.63rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--emerald); margin-bottom: 3px;
+    }
+    .alice-nm { font-family: 'Space Grotesk', sans-serif; font-size: 0.98rem; color: var(--white); font-weight: 700; }
+    .alice-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    .alice-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      border: 1.5px solid var(--emerald); color: var(--emerald);
+      padding: 9px 20px; border-radius: 7px;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; transition: all 0.2s; white-space: nowrap;
+    }
+    .alice-btn:hover { background: var(--emerald); color: var(--black); }
+    .alice-btn svg { width: 12px; height: 12px; }
+
+    .ft-bottom {
+      padding-top: 1.8rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .ft-copy { font-size: 0.8rem; color: var(--muted); }
+    .ft-copy a { color: var(--emerald); }
+    .btn-cv-ft {
+      border: 1px solid var(--emerald); color: var(--emerald);
+      padding: 7px 18px; border-radius: 6px;
+      font-size: 0.76rem; font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-cv-ft:hover { background: var(--emerald); color: var(--black); }
+
+    /* ===== REVEAL ===== */
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.vis { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .kanban-board { order: -1; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-img-wrap { max-width: 360px; }
+      .skills-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .ft-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-right { display: none; }
+      .hamburger { display: flex; }
+      .section { padding: 70px 5%; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .tool-grid { grid-template-columns: repeat(3,1fr); }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .section { padding: 55px 5%; }
+      .ft-top { grid-template-columns: 1fr; }
+      .alice-box { flex-direction: column; }
+      .ft-bottom { flex-direction: column; text-align: center; }
+      .about-info-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="mainNav">
+  <a href="#home" class="nav-brand">
+    <span class="nav-brand-badge"></span>
+    Sam Rivera
+  </a>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <a href="images/cv.pdf" class="btn-nav-cv" id="cvDownloadBtn" download>⬇ Download CV</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mob-nav" id="mobNav">
+  <a href="#home"     onclick="closeMob()">Home</a>
+  <a href="#about"    onclick="closeMob()">About</a>
+  <a href="#skills"   onclick="closeMob()">Skills</a>
+  <a href="#projects" onclick="closeMob()">Projects</a>
+  <a href="#contact"  onclick="closeMob()">Contact</a>
+  <a href="images/cv.pdf" class="btn-primary" style="margin-top:0.5rem" download>⬇ Download CV</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="home">
+  <div class="hero-grid">
+    <div class="reveal">
+      <div class="hero-eyebrow">Project Management Specialist</div>
+      <h1 class="hero-name">Sam<br><span class="em">Rivera.</span></h1>
+      <p class="hero-sub">Agile · Scrum · Jira · Asana · MS Project · Delivery</p>
+      <p class="hero-desc">I lead cross-functional teams from chaos to clarity — delivering projects on time, in scope, and under budget. From sprint planning to executive reporting, I make complex things manageable.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="images/cv.pdf" class="btn-ghost" id="cvDownloadBtn2" download>Download CV</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="h-stat-val">7+</div>
+          <div class="h-stat-lbl">Years PM</div>
+        </div>
+        <div>
+          <div class="h-stat-val">50+</div>
+          <div class="h-stat-lbl">Projects Led</div>
+        </div>
+        <div>
+          <div class="h-stat-val">98%</div>
+          <div class="h-stat-lbl">On-Time Rate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIGNATURE: Live Kanban board -->
+    <div>
+      <div class="kanban-board" id="kanban">
+        <!-- TO DO column -->
+        <div class="kb-col">
+          <div class="kb-col-title"><span class="kb-dot d-amber"></span>To Do</div>
+          <div class="kb-card">
+            <div class="kb-card-tag tag-r">High</div><br/>
+            Stakeholder briefing Q4
+            <div class="kb-avatar-row"><span class="kb-av av1">SR</span><span class="kb-av av2">MK</span></div>
+          </div>
+          <div class="kb-card">
+            <div class="kb-card-tag tag-b">Med</div><br/>
+            Risk register update
+            <div class="kb-avatar-row"><span class="kb-av av3">JL</span></div>
+          </div>
+          <div class="kb-card">
+            <div class="kb-card-tag tag-a">Low</div><br/>
+            Sprint retrospective
+            <div class="kb-avatar-row"><span class="kb-av av1">SR</span></div>
+          </div>
+        </div>
+        <!-- IN PROGRESS -->
+        <div class="kb-col">
+          <div class="kb-col-title"><span class="kb-dot d-blue"></span>In Progress</div>
+          <div class="kb-card">
+            <div class="kb-card-tag tag-r">High</div><br/>
+            MVP feature rollout
+            <div class="kb-avatar-row"><span class="kb-av av2">MK</span><span class="kb-av av3">JL</span></div>
+          </div>
+          <div class="kb-card">
+            <div class="kb-card-tag tag-b">Med</div><br/>
+            Budget reconciliation
+            <div class="kb-avatar-row"><span class="kb-av av1">SR</span></div>
+          </div>
+        </div>
+        <!-- DONE -->
+        <div class="kb-col">
+          <div class="kb-col-title"><span class="kb-dot d-em"></span>Done</div>
+          <div class="kb-card">
+            <div class="kb-card-tag tag-c">Done</div><br/>
+            Sprint 12 planning
+            <div class="kb-avatar-row"><span class="kb-av av1">SR</span><span class="kb-av av2">MK</span><span class="kb-av av3">JL</span></div>
+          </div>
+          <div class="kb-card">
+            <div class="kb-card-tag tag-c">Done</div><br/>
+            Client scope sign-off
+            <div class="kb-avatar-row"><span class="kb-av av3">JL</span></div>
+          </div>
+          <div class="kb-card">
+            <div class="kb-card-tag tag-c">Done</div><br/>
+            Timeline Gantt chart
+            <div class="kb-avatar-row"><span class="kb-av av1">SR</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== ABOUT ===== -->
+<section id="about" class="section">
+  <div class="sec-inner">
+    <div class="sec-eye">About Me</div>
+    <h2 class="sec-title">Structured Thinking.<br><span class="em">Measurable Results.</span></h2>
+    <div class="about-grid">
+      <div class="about-img-wrap reveal">
+        <span class="about-certs">PMP · CSM</span>
+        <!-- Replace src with your photo -->
+        <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Sam Rivera — Project Manager"/>
+        <div class="about-exp-pill"><strong>7+</strong>Years<br/>PM</div>
+      </div>
+      <div class="reveal" style="transition-delay:0.15s">
+        <div class="about-info-row">
+          <div class="about-info-cell">
+            <span class="about-info-lbl">Name</span>
+            <span class="about-info-val">Sam Rivera</span>
+          </div>
+          <div class="about-info-cell">
+            <span class="about-info-lbl">Certifications</span>
+            <span class="about-info-val">PMP, CSM, PRINCE2</span>
+          </div>
+          <div class="about-info-cell">
+            <span class="about-info-lbl">Location</span>
+            <span class="about-info-val">Kigali, Rwanda</span>
+          </div>
+          <div class="about-info-cell">
+            <span class="about-info-lbl">Status</span>
+            <span class="about-info-val" style="color:var(--emerald)">Open to Roles</span>
+          </div>
+        </div>
+        <div class="about-text">
+          <p>I'm a certified Project Manager with 7+ years delivering technology, operations, and product projects across startups and enterprise organisations. I specialise in Agile and hybrid delivery frameworks, using tools like Jira, Asana, and MS Project to keep teams aligned and stakeholders informed.</p>
+          <p>My approach is people-first: clear communication, realistic planning, and relentless follow-through. I've managed budgets up to $2M, teams of 20+, and multi-workstream programmes spanning 18 months.</p>
+        </div>
+        <div class="tag-list">
+          <span class="tag-item">Agile / Scrum</span>
+          <span class="tag-item">PRINCE2</span>
+          <span class="tag-item">Risk Management</span>
+          <span class="tag-item">Budget Control</span>
+          <span class="tag-item">Stakeholder Mgmt</span>
+          <span class="tag-item">Jira</span>
+          <span class="tag-item">Asana</span>
+          <span class="tag-item">MS Project</span>
+          <span class="tag-item">Gantt / WBS</span>
+        </div>
+        <a href="images/cv.pdf" class="btn-primary" download>⬇ Download CV</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills" class="section">
+  <div class="sec-inner">
+    <div class="sec-eye">Skills</div>
+    <h2 class="sec-title">Project Management <span class="em">Toolkit</span></h2>
+    <p class="skills-lead">Seven years of hands-on delivery have sharpened these competencies across industries including fintech, healthtech, and infrastructure.</p>
+    <div class="skills-layout">
+      <!-- Left: skill bars -->
+      <div class="reveal">
+        <div class="skill-grp-title">Core PM Competencies</div>
+        <div class="skill-item">
+          <div class="skill-row">
+            <span class="skill-nm"><span class="skill-badge sb-ag">Agile</span>Scrum &amp; Sprint Management</span>
+            <span class="skill-pct">95%</span>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill bf-em" data-w="95%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-row">
+            <span class="skill-nm"><span class="skill-badge sb-pm">PM</span>Project Planning &amp; Scheduling</span>
+            <span class="skill-pct">92%</span>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill bf-am" data-w="92%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-row">
+            <span class="skill-nm"><span class="skill-badge sb-pm">PM</span>Risk &amp; Issue Management</span>
+            <span class="skill-pct">88%</span>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill bf-am" data-w="88%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-row">
+            <span class="skill-nm"><span class="skill-badge sb-tl">Tool</span>Jira &amp; Confluence</span>
+            <span class="skill-pct">93%</span>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill bf-blue" data-w="93%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-row">
+            <span class="skill-nm"><span class="skill-badge sb-tl">Tool</span>Asana &amp; Monday.com</span>
+            <span class="skill-pct">90%</span>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill bf-blue" data-w="90%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-row">
+            <span class="skill-nm"><span class="skill-badge sb-tl">Tool</span>MS Project &amp; Gantt Charts</span>
+            <span class="skill-pct">87%</span>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill bf-blue" data-w="87%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-row">
+            <span class="skill-nm"><span class="skill-badge sb-pm">PM</span>Stakeholder Communication</span>
+            <span class="skill-pct">96%</span>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill bf-em" data-w="96%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-row">
+            <span class="skill-nm"><span class="skill-badge sb-pm">PM</span>Budget &amp; Resource Control</span>
+            <span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill bf-am" data-w="85%"></div></div>
+        </div>
+      </div>
+      <!-- Right: tool icons + extra -->
+      <div class="reveal" style="transition-delay:0.15s">
+        <div class="skill-grp-title">PM Tools</div>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-icon ti-jira">Ji</div>
+            <span class="tool-lbl">Jira</span>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon ti-asana">As</div>
+            <span class="tool-lbl">Asana</span>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon ti-trello">Tr</div>
+            <span class="tool-lbl">Trello</span>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon ti-ms">MS</div>
+            <span class="tool-lbl">MS Project</span>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon ti-notion">N</div>
+            <span class="tool-lbl">Notion</span>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon ti-slack">Sl</div>
+            <span class="tool-lbl">Slack</span>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon ti-click">CU</div>
+            <span class="tool-lbl">ClickUp</span>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon ti-mon">Mo</div>
+            <span class="tool-lbl">Monday</span>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon ti-conf">Cf</div>
+            <span class="tool-lbl">Confluence</span>
+          </div>
+        </div>
+        <div style="margin-top:2rem">
+          <div class="skill-grp-title">Methodologies</div>
+          <div class="skill-item">
+            <div class="skill-row">
+              <span class="skill-nm"><span class="skill-badge sb-ag">Agile</span>Agile / Scrum / Kanban</span>
+              <span class="skill-pct">95%</span>
+            </div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill bf-em" data-w="95%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-row">
+              <span class="skill-nm"><span class="skill-badge sb-pm">PM</span>PRINCE2 / Waterfall</span>
+              <span class="skill-pct">82%</span>
+            </div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill bf-am" data-w="82%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-row">
+              <span class="skill-nm"><span class="skill-badge sb-ag">Lean</span>Lean &amp; Six Sigma</span>
+              <span class="skill-pct">78%</span>
+            </div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill bf-em" data-w="78%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== PROJECTS ===== -->
+<section id="projects" class="section">
+  <div class="sec-inner">
+    <div class="sec-eye">Portfolio</div>
+    <h2 class="sec-title">Featured <span class="em">Deliveries</span></h2>
+    <p class="projects-lead">Real projects, real results. Each case study shows how structured PM practice turns ambiguity into successful delivery.</p>
+    <div class="proj-grid">
+
+      <!-- PROJECT 1 -->
+      <div class="proj-card reveal">
+        <div class="proj-img">
+          <!-- Replace src with your project screenshot/image -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="ERP Implementation"/>
+          <span class="proj-type" style="background:rgba(0,212,170,0.85);color:#080C14">ERP · Enterprise</span>
+        </div>
+        <div class="proj-body">
+          <h3 class="proj-title">ERP System Implementation</h3>
+          <p class="proj-desc">Led a 14-month, 3-country ERP rollout for a logistics firm. Coordinated 5 vendors, 18-person team, $1.8M budget. Delivered 3 weeks ahead of schedule with zero critical incidents.</p>
+          <div class="proj-foot">
+            <div class="proj-tools">
+              <span class="p-chip pc-bl">Jira</span>
+              <span class="p-chip pc-am">MS Project</span>
+              <span class="p-chip pc-em">Scrum</span>
+            </div>
+            <a href="#" target="_blank" rel="noopener" class="btn-open">
+              View
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="proj-card reveal" style="transition-delay:0.1s">
+        <div class="proj-img">
+          <!-- Replace src with your project screenshot/image -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Mobile App Launch"/>
+          <span class="proj-type" style="background:rgba(245,158,11,0.85);color:#080C14">Product · Agile</span>
+        </div>
+        <div class="proj-body">
+          <h3 class="proj-title">Fintech Mobile App Launch</h3>
+          <p class="proj-desc">Scrum Master for a 9-month fintech mobile app build. Ran 18 sprints, facilitated daily standups, and managed a product backlog of 300+ user stories across design, dev, and QA.</p>
+          <div class="proj-foot">
+            <div class="proj-tools">
+              <span class="p-chip pc-bl">Jira</span>
+              <span class="p-chip pc-bl">Confluence</span>
+              <span class="p-chip pc-em">Agile</span>
+            </div>
+            <a href="#" target="_blank" rel="noopener" class="btn-open">
+              View
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 3 -->
+      <div class="proj-card reveal" style="transition-delay:0.2s">
+        <div class="proj-img">
+          <!-- Replace src with your project screenshot/image -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Office Relocation"/>
+          <span class="proj-type" style="background:rgba(96,165,250,0.85);color:#080C14">Operations</span>
+        </div>
+        <div class="proj-body">
+          <h3 class="proj-title">HQ Office Relocation Programme</h3>
+          <p class="proj-desc">Managed a 400-person office relocation across two buildings — coordinating IT, facilities, HR, and 11 contractors over 6 months with zero business interruption.</p>
+          <div class="proj-foot">
+            <div class="proj-tools">
+              <span class="p-chip pc-am">Asana</span>
+              <span class="p-chip pc-am">MS Project</span>
+              <span class="p-chip pc-em">Waterfall</span>
+            </div>
+            <a href="#" target="_blank" rel="noopener" class="btn-open">
+              View
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 4 -->
+      <div class="proj-card reveal" style="transition-delay:0.1s">
+        <div class="proj-img">
+          <!-- Replace src with your project screenshot/image -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Digital Transformation"/>
+          <span class="proj-type" style="background:rgba(239,68,68,0.85);color:#fff">Digital Transform</span>
+        </div>
+        <div class="proj-body">
+          <h3 class="proj-title">Digital Transformation — Healthcare</h3>
+          <p class="proj-desc">Programme Manager for a 3-workstream digital transformation across a regional hospital network. Managed patient records, billing, and scheduling systems in parallel.</p>
+          <div class="proj-foot">
+            <div class="proj-tools">
+              <span class="p-chip pc-bl">Monday</span>
+              <span class="p-chip pc-rd">PRINCE2</span>
+              <span class="p-chip pc-em">Agile</span>
+            </div>
+            <a href="#" target="_blank" rel="noopener" class="btn-open">
+              View
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 5 -->
+      <div class="proj-card reveal" style="transition-delay:0.2s">
+        <div class="proj-img">
+          <!-- Replace src with your project screenshot/image -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Process Automation"/>
+          <span class="proj-type" style="background:rgba(0,212,170,0.85);color:#080C14">Process · Lean</span>
+        </div>
+        <div class="proj-body">
+          <h3 class="proj-title">Operations Process Automation</h3>
+          <p class="proj-desc">Led a Lean Six Sigma project to automate 8 manual reporting workflows, cutting turnaround time by 65% and saving 12 staff hours per week across the ops team.</p>
+          <div class="proj-foot">
+            <div class="proj-tools">
+              <span class="p-chip pc-bl">ClickUp</span>
+              <span class="p-chip pc-am">Lean</span>
+              <span class="p-chip pc-em">Six Sigma</span>
+            </div>
+            <a href="#" target="_blank" rel="noopener" class="btn-open">
+              View
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 6 -->
+      <div class="proj-card reveal" style="transition-delay:0.3s">
+        <div class="proj-img">
+          <!-- Replace src with your project screenshot/image -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Remote Team Setup"/>
+          <span class="proj-type" style="background:rgba(245,158,11,0.85);color:#080C14">Remote · Setup</span>
+        </div>
+        <div class="proj-body">
+          <h3 class="proj-title">Remote-First Team Setup &amp; Playbook</h3>
+          <p class="proj-desc">Designed and rolled out a remote-work framework for a 60-person engineering team across 5 time zones — including Notion workspace, async communication norms, and sprint cadence.</p>
+          <div class="proj-foot">
+            <div class="proj-tools">
+              <span class="p-chip pc-em">Notion</span>
+              <span class="p-chip pc-bl">Slack</span>
+              <span class="p-chip pc-em">Scrum</span>
+            </div>
+            <a href="#" target="_blank" rel="noopener" class="btn-open">
+              View
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="section">
+  <div class="sec-inner">
+    <div class="sec-eye">Get In Touch</div>
+    <h2 class="sec-title">Let's Deliver <span class="em">Something Great</span></h2>
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="contact-intro-text">Whether you need a PM to lead your next product launch, fix a derailed programme, or set up your team's Agile practice — I'm open to freelance, contract, and full-time opportunities.</p>
+        <div class="c-method">
+          <div class="c-icon">✉</div>
+          <div>
+            <span class="c-lbl">Email</span>
+            <span class="c-val">sam.rivera@email.com</span>
+          </div>
+        </div>
+        <div class="c-method">
+          <div class="c-icon">📞</div>
+          <div>
+            <span class="c-lbl">Phone</span>
+            <span class="c-val">+250 700 000 000</span>
+          </div>
+        </div>
+        <div class="c-method">
+          <div class="c-icon">📍</div>
+          <div>
+            <span class="c-lbl">Location</span>
+            <span class="c-val">Kigali, Rwanda</span>
+          </div>
+        </div>
+        <!-- WhatsApp — replace 250700000000 with your number -->
+        <a href="https://wa.me/250700000000?text=Hi%20Sam!%20I%20saw%20your%20portfolio%20and%20I%27d%20love%20to%20discuss%20a%20project." target="_blank" rel="noopener" class="wa-cta">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+      <div class="reveal" style="transition-delay:0.15s">
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="f-group">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" placeholder="Your first name"/>
+            </div>
+            <div class="f-group">
+              <label for="flname">Last Name</label>
+              <input type="text" id="flname" placeholder="Your last name"/>
+            </div>
+          </div>
+          <div class="f-group">
+            <label for="femail">Email</label>
+            <input type="email" id="femail" placeholder="your@email.com"/>
+          </div>
+          <div class="f-group">
+            <label for="ftype">Project / Role Type</label>
+            <select id="ftype">
+              <option value="" disabled selected>What do you need?</option>
+              <option>Freelance Project Manager</option>
+              <option>Scrum Master / Agile Coach</option>
+              <option>Programme Management</option>
+              <option>Team Setup &amp; Process Design</option>
+              <option>Jira / Asana Setup &amp; Training</option>
+              <option>Full-Time PM Role</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="f-group">
+            <label for="fmsg">Tell me about your project</label>
+            <textarea id="fmsg" rows="5" placeholder="Project scope, timeline, team size..."></textarea>
+          </div>
+          <button type="button" class="btn-send" onclick="sendWA()">Send Message →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-top">
+      <div>
+        <div class="ft-brand">
+          <span class="nav-brand-badge"></span>
+          Sam Rivera
+        </div>
+        <p class="ft-desc">Project Management Specialist delivering structured, on-time, in-budget results using Agile, Scrum, and leading PM tools.</p>
+        <div class="ft-socials">
+          <a href="#" class="ft-soc" aria-label="LinkedIn">Li</a>
+          <a href="#" class="ft-soc" aria-label="GitHub">Gh</a>
+          <a href="#" class="ft-soc" aria-label="Twitter">Tw</a>
+          <a href="#" class="ft-soc" aria-label="Behance">Be</a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <div class="ft-col-hd">Navigate</div>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <div class="ft-col-hd">Services</div>
+        <ul>
+          <li><a href="#projects">Agile / Scrum</a></li>
+          <li><a href="#projects">ERP &amp; Digital Programmes</a></li>
+          <li><a href="#projects">Risk Management</a></li>
+          <li><a href="#projects">Tool Setup &amp; Training</a></li>
+          <li><a href="#projects">Process Improvement</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <div class="ft-col-hd">Contact</div>
+        <ul>
+          <li><a href="mailto:sam.rivera@email.com">sam.rivera@email.com</a></li>
+          <li><a href="tel:+250700000000">+250 700 000 000</a></li>
+          <li><a href="https://wa.me/250700000000" target="_blank">WhatsApp</a></li>
+          <li><a href="images/cv.pdf" download>Download CV</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Alice Cop trainer section -->
+    <div class="alice-box">
+      <div class="alice-left">
+        <div class="alice-logo">
+          <!-- Alice Cop logo placeholder -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Alice Cop Trainer"/>
+        </div>
+        <div>
+          <div class="alice-lbl">Trained &amp; Mentored By</div>
+          <div class="alice-nm">Alice Cop — PM &amp; Productivity Trainer</div>
+          <div class="alice-sub">Professional Project Management &amp; Productivity Training Programs</div>
+        </div>
+      </div>
+      <a href="https://www.alicecop.com/" target="_blank" rel="noopener" class="alice-btn">
+        Visit Alice Cop
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="ft-bottom">
+      <p class="ft-copy">© 2025 Sam Rivera. All rights reserved. Trained by <a href="https://www.alicecop.com/" target="_blank">Alice Cop</a>.</p>
+      <a href="images/cv.pdf" class="btn-cv-ft" download>⬇ Download CV</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobNav    = document.getElementById('mobNav');
+  hamburger.addEventListener('click', () => mobNav.classList.toggle('open'));
+  function closeMob() { mobNav.classList.remove('open'); }
+
+  // Init skill bars at 0
+  document.querySelectorAll('.skill-bar-fill').forEach(b => b.style.width = '0%');
+
+  // Scroll reveal + skill bars
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('vis');
+      entry.target.querySelectorAll('.skill-bar-fill').forEach(b => {
+        b.style.width = b.getAttribute('data-w');
+      });
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => obs.observe(el));
+
+  // Kanban board animation on load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.kb-col').forEach(c => c.classList.add('visible'));
+    }, 300);
+  });
+
+  // WhatsApp form
+  function sendWA() {
+    const name    = document.getElementById('fname').value.trim();
+    const email   = document.getElementById('femail').value.trim();
+    const type    = document.getElementById('ftype').value;
+    const msg     = document.getElementById('fmsg').value.trim();
+    if (!name || !email || !msg) {
+      alert('Please fill in your name, email, and message.');
+      return;
+    }
+    const num  = '250700000000'; // ← replace with your WhatsApp number
+    const text = encodeURIComponent(
+      `Hi Sam! I'm ${name} (${email}).\nNeed: ${type || 'Not specified'}\n\n${msg}`
+    );
+    window.open(`https://wa.me/${num}?text=${text}`, '_blank');
+  }
+
+  // Navbar scroll shadow
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 30
+      ? '0 4px 24px rgba(0,0,0,0.5)'
+      : 'none';
+  });
+</script>
+</body>
+</html>
