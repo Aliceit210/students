@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Alex Kim | Data Analyst</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    html { scroll-behavior: smooth; }
+
+    * { padding: 0; margin: 0; box-sizing: border-box; }
+
+    body {
+      background-color: #000;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: white;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; transition: all 0.25s; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== LAYOUT ===== */
+    .gjs-container {
+      width: 90%;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+    .gjs-section {
+      display: flex;
+      padding: 50px 0;
+    }
+    .gjs-plg-flex-row {
+      display: flex;
+      align-items: stretch;
+      flex-wrap: nowrap;
+    }
+    .gjs-plg-flex-column {
+      flex-grow: 1;
+    }
+    .gjs-link-box {
+      color: inherit;
+      display: inline-block;
+      vertical-align: top;
+      padding: 10px;
+      max-width: 100%;
+      text-decoration: none;
+    }
+    .gjs-icon {
+      display: inline-block;
+      vertical-align: middle;
+      fill: currentColor;
+      width: 50px;
+      height: 50px;
+    }
+    .gjs-divider {
+      height: 1px;
+      width: 100%;
+      background-color: rgba(255,255,255,0.2);
+      margin: 18px 0;
+    }
+
+    /* ===== STICKY SIDEBAR ===== */
+    #sidebar-col {
+      position: relative;
+      flex: 0 1 auto;
+      max-width: 320px;
+      min-width: 240px;
+    }
+    #sidebar-inner {
+      position: sticky;
+      top: 15px;
+    }
+    #sidebar-card {
+      padding: 15px;
+      border-radius: 20px;
+      border: 1px solid #3C3C3C;
+      background-color: #101010;
+      max-width: 100%;
+    }
+    #hero-photo {
+      width: 100%;
+      border-radius: 12px;
+    }
+    /* Available badge */
+    #avail-badge {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 15px 35px;
+      flex: 0 1 auto;
+      border-radius: 10px;
+      border: 1px solid #3C3C3C;
+      margin: 15px auto 0;
+      font-size: 1rem;
+    }
+    #avail-dot {
+      width: 12px; height: 12px; color: #28E98C;
+    }
+    #avail-dot svg { width: 12px; height: 12px; }
+    #avail-text { font-weight: 600; }
+    #sidebar-name {
+      margin: 10px 0 0;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+    /* Social icons row */
+    #socials-wrap {
+      width: 100%;
+      justify-content: space-between;
+      padding: 20px 0;
+    }
+    #socials-inner {
+      flex-basis: 100%;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .soc-link { cursor: pointer; padding: 5px; }
+    .soc-icon {
+      color: white;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.4);
+      cursor: pointer;
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .soc-icon:hover { border-color: #28E98C; color: #28E98C; }
+    .soc-icon svg { width: 18px; height: 18px; }
+    /* Sidebar buttons */
+    #sidebar-btns-wrap { width: 100%; }
+    #sidebar-btns {
+      flex-basis: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 4px 0 10px;
+    }
+    .sidebar-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 48px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: all 0.2s;
+    }
+    .btn-dark { background-color: #1F1F1F; color: white; }
+    .btn-dark:hover { background-color: #2A2A2A; }
+    .btn-green { background-color: #28E98C; color: #000; }
+    .btn-green:hover { background-color: #1fd47e; }
+
+    /* ===== MAIN CONTENT ===== */
+    #main-col {
+      flex-basis: 70%;
+      padding: 40px 30px 60px;
+    }
+
+    /* Hello row */
+    #hello-row { width: 100%; margin-bottom: 4px; }
+    #hello-inner {
+      flex-basis: 100%;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    #hello-icon { width: 28px; height: 28px; color: #FF6B35; transform: rotate(-45deg); }
+    #hello-icon svg { width: 100%; height: 100%; }
+    #hello-text { color: #737471; font-weight: 500; font-size: 1.1rem; }
+
+    /* Hero heading */
+    #hero-heading {
+      margin: 8px 0;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+    }
+    #hero-role { color: #28E98C; }
+    #hero-location { color: #FF6B35; font-size: clamp(1.1rem, 2.5vw, 1.4rem); }
+
+    /* Hero description */
+    #hero-desc {
+      display: block;
+      color: #CBCBCB;
+      padding: 15px 0 30px;
+      line-height: 1.75;
+      font-size: 1rem;
+    }
+
+    /* Stats row */
+    #stats-row { width: 100%; margin-bottom: 30px; }
+    .stat-cell {
+      flex-basis: 25%;
+      padding: 10px;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 8px 0;
+      color: white;
+    }
+    .stat-lbl {
+      font-size: 0.85rem;
+      color: #CBCBCB;
+    }
+
+    /* ===== SECTION LABELS ===== */
+    .sec-label-row {
+      width: 100%;
+      flex-direction: column;
+      padding-top: 40px;
+      padding-bottom: 18px;
+    }
+    .sec-label-inner {
+      flex-basis: 100%;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .sec-label-icon { width: 32px; height: 32px; }
+    .sec-label-icon svg { width: 100%; height: 100%; }
+    .sec-label-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    .icon-blue { color: #358EFF; }
+    .icon-orange { color: #C86605; }
+    .icon-green { color: #6FD654; }
+    .icon-purple { color: #9B59B6; }
+    .icon-red { color: #E74C3C; }
+    .icon-teal { color: #28E98C; }
+
+    /* ===== EXPERIENCE CARDS ===== */
+    .exp-cards-wrap {
+      width: 100%;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .exp-card {
+      flex-basis: 100%;
+      background-color: #101010;
+      border-radius: 20px;
+      border: 1px solid #3C3C3C;
+      padding: 22px;
+    }
+    .exp-card-row {
+      width: 100%;
+      gap: 10px;
+    }
+    .exp-icon-wrap { flex: 0 1 auto; }
+    .exp-icon { width: 26px; height: 26px; color: #CCB810; }
+    .exp-icon svg { width: 100%; height: 100%; }
+    .exp-title-wrap { flex-basis: 55%; }
+    .exp-title { font-size: 1.05rem; font-weight: 700; margin: 0; }
+    .exp-company { color: #CBCBCB; font-size: 0.92rem; padding-top: 3px; }
+    .exp-date-wrap { flex: 0 1 auto; }
+    .exp-date {
+      padding: 12px 16px;
+      width: 150px;
+      text-align: center;
+      border-radius: 10px;
+      background-color: #1F1F1F;
+      font-weight: 600;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+    .exp-desc {
+      font-size: 0.95rem;
+      display: block;
+      padding-bottom: 6px;
+      line-height: 1.7;
+      color: #CBCBCB;
+    }
+
+    /* ===== PROJECTS GRID ===== */
+    #projects-grid {
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .proj-card {
+      flex: 0 0 49%;
+      padding: 15px;
+      border-radius: 20px;
+      border: 1px solid #3C3C3C;
+      background-color: #101010;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .proj-card:hover {
+      border-color: #28E98C;
+      transform: translateY(-4px);
+    }
+    .proj-img {
+      width: 100%;
+      border-radius: 10px;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+    .proj-bottom {
+      width: 100%;
+      align-items: center;
+      padding-top: 12px;
+      padding-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .proj-info { flex: 1; }
+    .proj-title { font-size: 1rem; font-weight: 700; margin: 4px 0 2px; }
+    .proj-tag { color: #CBCBCB; font-size: 0.82rem; }
+    .proj-link-btn {
+      color: white;
+      width: 44px; height: 44px;
+      padding: 14px;
+      border-radius: 50%;
+      background-color: #1D1D1D;
+      cursor: pointer;
+      transition: color 0.2s, background 0.4s;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .proj-link-btn:hover { background-color: #28E98C; color: #000; }
+    .proj-link-btn svg { width: 16px; height: 16px; }
+
+    /* ===== EDUCATION ===== */
+    .edu-cards-wrap {
+      width: 100%;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* ===== SKILLS/TOOLS TILES ===== */
+    #tools-wrap {
+      width: 100%;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .tool-tile {
+      padding: 18px 22px;
+      border: 1px solid #3C3C3C;
+      border-radius: 20px;
+      flex: 0 0 calc(50% - 6px);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .tool-tile:hover { border-color: #28E98C; background: rgba(40,233,140,0.04); }
+    .tool-icon-wrap { flex: 0 1 auto; }
+    .tool-icon { width: 30px; height: 30px; }
+    .tool-icon svg { width: 100%; height: 100%; }
+    .tool-name-wrap { flex: 1; }
+    .tool-name { font-size: 1.05rem; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; }
+    .tool-sub { color: #CBCBCB; font-size: 0.85rem; margin-top: 2px; }
+
+    /* Skill bars */
+    #skillbars-wrap {
+      width: 100%;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .skillbar-card {
+      flex-basis: 100%;
+      background-color: #101010;
+      border-radius: 20px;
+      border: 1px solid #3C3C3C;
+      padding: 22px;
+    }
+    .skillbar-item { margin-bottom: 14px; }
+    .skillbar-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .skillbar-name { font-size: 0.9rem; font-weight: 600; }
+    .skillbar-pct { font-size: 0.85rem; color: #28E98C; font-weight: 700; }
+    .skillbar-bg { width: 100%; height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+    .skillbar-fill {
+      height: 100%; border-radius: 3px;
+      transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .sf-green  { background: linear-gradient(90deg, #28E98C, #6FFFBC); }
+    .sf-orange { background: linear-gradient(90deg, #FF6B35, #FFAA80); }
+    .sf-blue   { background: linear-gradient(90deg, #358EFF, #80BFFF); }
+    .sf-purple { background: linear-gradient(90deg, #9B59B6, #C77DFF); }
+
+    /* ===== CONTACT ===== */
+    #contact-wrap {
+      width: 100%;
+      gap: 15px;
+    }
+    #contact-info {
+      flex: 0 0 38%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .contact-item {
+      width: 100%;
+      flex-direction: row;
+      gap: 12px;
+      padding: 18px;
+      border-radius: 16px;
+      background-color: #101010;
+      border: 1px solid #3C3C3C;
+      display: flex;
+      align-items: center;
+    }
+    .contact-item-icon { flex: 0 1 auto; width: 30px; height: 30px; }
+    .contact-item-icon svg { width: 100%; height: 100%; }
+    .contact-lbl { font-size: 0.78rem; color: #CBCBCB; display: block; }
+    .contact-val { font-size: 0.95rem; font-weight: 700; }
+    .wa-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #25D366;
+      color: #000;
+      height: 52px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      text-decoration: none;
+    }
+    .wa-btn:hover { background: #1ebe5d; transform: translateY(-2px); }
+    .wa-btn svg { width: 22px; height: 22px; fill: #000; }
+    #contact-form { flex: 0 0 60%; }
+    .form-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-wrap input,
+    .form-wrap textarea,
+    .form-wrap select {
+      display: block;
+      width: 100%;
+      padding: 16px 14px;
+      border-radius: 10px;
+      border: 1px solid #3C3C3C;
+      background-color: #101010;
+      color: white;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      resize: none;
+      transition: border-color 0.2s;
+    }
+    .form-wrap input:focus,
+    .form-wrap textarea:focus,
+    .form-wrap select:focus { border-color: #28E98C; }
+    .form-wrap input::placeholder,
+    .form-wrap textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .form-wrap select option { background: #101010; }
+    #send-btn {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      border-radius: 10px;
+      border: none;
+      background-color: #28E98C;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #send-btn:hover { background-color: #1fd47e; }
+
+    /* ===== FOOTER ===== */
+    #footer {
+      padding-top: 0;
+      padding-bottom: 0;
+      border-top: 1px solid #3C3C3C;
+      background-color: #101010;
+    }
+    #footer-inner {
+      display: flex;
+      flex-direction: column;
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 0 20px;
+    }
+    #footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #3C3C3C;
+    }
+    .ft-brand-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ft-brand-dot {
+      width: 10px; height: 10px;
+      background: #28E98C;
+      border-radius: 50%;
+    }
+    .ft-desc {
+      font-size: 0.9rem;
+      color: #CBCBCB;
+      line-height: 1.7;
+      max-width: 260px;
+      margin-bottom: 14px;
+    }
+    .ft-socials { display: flex; gap: 8px; }
+    .ft-soc {
+      width: 34px; height: 34px; border-radius: 7px;
+      border: 1px solid #3C3C3C;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700; color: #CBCBCB;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .ft-soc:hover { border-color: #28E98C; color: #28E98C; }
+    .ft-col-hd {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: white; margin-bottom: 1rem;
+    }
+    .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .ft-col ul li a { font-size: 0.88rem; color: #CBCBCB; transition: color 0.2s; }
+    .ft-col ul li a:hover { color: #28E98C; }
+
+    /* Alice Cop box */
+    #alice-box {
+      margin: 1.8rem 0;
+      background: rgba(40,233,140,0.05);
+      border: 1px solid rgba(40,233,140,0.2);
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    #alice-left { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    #alice-logo-wrap {
+      width: 48px; height: 48px; border-radius: 8px;
+      border: 1px solid rgba(40,233,140,0.2);
+      overflow: hidden; flex-shrink: 0;
+      background: rgba(255,255,255,0.04);
+      display: flex; align-items: center; justify-content: center;
+    }
+    #alice-logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    .alice-lbl {
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #28E98C; margin-bottom: 2px;
+    }
+    .alice-nm { font-size: 1rem; font-weight: 800; color: white; }
+    .alice-sub { font-size: 0.8rem; color: #CBCBCB; margin-top: 2px; }
+    #alice-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      border: 1.5px solid #28E98C; color: #28E98C;
+      padding: 9px 20px; border-radius: 8px;
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    #alice-btn:hover { background: #28E98C; color: #000; }
+    #alice-btn svg { width: 12px; height: 12px; }
+
+    #footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      padding-top: 1.5rem;
+    }
+    #footer-name { font-size: 1.1rem; font-weight: 700; }
+    #footer-copy { color: #CBCBCB; font-size: 0.85rem; letter-spacing: 0.05rem; }
+    #footer-copy a { color: #28E98C; }
+    .btn-cv-footer {
+      border: 1px solid #28E98C;
+      color: #28E98C;
+      padding: 7px 18px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .btn-cv-footer:hover { background: #28E98C; color: #000; }
+
+    /* ===== REVEAL ===== */
+    .reveal {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.vis { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 992px) {
+      #hero-heading { font-size: 2rem; }
+      .exp-date { font-size: 0.8rem; width: 120px; }
+      .exp-title { font-size: 0.9rem; }
+      .tool-tile { flex: 0 0 100%; }
+      #footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      #ie3jp { flex-wrap: wrap !important; }
+      #sidebar-col { max-width: 100%; width: 100%; }
+      #main-col { padding: 20px 0 40px; }
+      .proj-card { flex: 0 0 100%; }
+      #contact-wrap { flex-wrap: wrap; }
+      #contact-info { flex: 0 0 100%; }
+      #contact-form { flex: 0 0 100%; }
+      .exp-card-row { flex-wrap: wrap; }
+      .exp-date { width: auto; }
+      #footer-top { grid-template-columns: 1fr 1fr; }
+      #alice-box { flex-direction: column; }
+      #footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .stat-cell { flex-basis: 50%; }
+      #stats-row { flex-wrap: wrap; }
+      .proj-card { flex: 0 0 100%; }
+      .tool-tile { flex: 0 0 100%; }
+      #footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="gjs-section">
+  <div class="gjs-container">
+    <div class="gjs-plg-flex-row" id="ie3jp" style="gap:20px">
+
+      <!-- ===== SIDEBAR ===== -->
+      <div id="sidebar-col">
+        <div id="sidebar-inner">
+          <div id="sidebar-card">
+            <!-- Replace src below with your photo -->
+            <img id="hero-photo" src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Alex Kim — Data Analyst"/>
+
+            <div class="gjs-plg-flex-row" style="width:100%;padding-top:15px;padding-bottom:15px;">
+              <div id="avail-badge">
+                <div id="avail-dot">
+                  <svg viewBox="0 0 28 28" fill="currentColor"><path d="M14 2C7.373 2 2 7.373 2 14s5.373 12 12 12s12-5.373 12-12S20.627 2 14 2"/></svg>
+                </div>
+                <div id="avail-text">Available for work</div>
+              </div>
+            </div>
+
+            <h1 id="sidebar-name">Alex Kim</h1>
+
+            <!-- Social icons -->
+            <div class="gjs-plg-flex-row" id="socials-wrap">
+              <div id="socials-inner">
+                <a href="#" class="soc-link" title="LinkedIn">
+                  <div class="soc-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S.02 4.88.02 3.5C.02 2.12 1.13 1 2.5 1s2.48 1.12 2.48 2.5zM5 8H0v16h5V8zm7.982 0H8.014v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0V24H24V13.869c0-7.88-8.922-7.593-11.018-3.714V8z"/></svg>
+                  </div>
+                </a>
+                <a href="#" class="soc-link" title="GitHub">
+                  <div class="soc-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                  </div>
+                </a>
+                <a href="#" class="soc-link" title="Kaggle">
+                  <div class="soc-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.33-.246.495-.246h3.239c.144 0 .236.06.285.18.046.149.034.255-.036.315l-6.555 6.344 6.836 8.507c.095.104.117.208.07.336"/></svg>
+                  </div>
+                </a>
+                <a href="#" class="soc-link" title="Twitter/X">
+                  <div class="soc-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.75l7.73-8.835L1.254 2.25H8.08l4.258 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                  </div>
+                </a>
+                <a href="#" class="soc-link" title="Portfolio">
+                  <div class="soc-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2c-4 4-4 16 0 20M12 2c4 4 4 16 0 20"/></svg>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="gjs-plg-flex-row" id="sidebar-btns-wrap">
+              <div id="sidebar-btns">
+                <a href="images/cv.pdf" class="sidebar-btn btn-dark cv-btn" id="cvDownloadBtn" download>⬇ Download CV</a>
+                <a href="#contact" class="sidebar-btn btn-green">Contact Me</a>
+              </div>
+            </div>
+          </div><!-- end sidebar-card -->
+        </div><!-- end sidebar-inner -->
+      </div><!-- end sidebar-col -->
+
+      <!-- ===== MAIN ===== -->
+      <div id="main-col">
+
+        <!-- HOME / HERO -->
+        <section id="home">
+          <div class="gjs-plg-flex-row" id="hello-row">
+            <div id="hello-inner">
+              <div id="hello-icon">
+                <svg viewBox="0 0 28 28" fill="currentColor"><path d="M13 3v9.25a.75.75 0 0 1-1.5 0V4.5a1 1 0 1 0-2 0v8.25a.75.75 0 0 1-1.5 0V6.997a1 1 0 1 0-2 0V17.25c0 2.519.982 5.295 1.644 6.89.487 1.172 1.639 1.857 2.855 1.857h3.595a3.25 3.25 0 0 0 2.914-1.81l.695-1.406q.44-.889 1.028-1.688l2.79-3.785 2.632-1.675A.75.75 0 0 0 24.5 15c0-.487-.214-.889-.549-1.17-.31-.26-.699-.396-1.066-.466-.733-.14-1.622-.059-2.417.16-.722.183-1.423.525-1.968.837V4.5a1 1 0 1 0-2 0v7.75a.75.75 0 0 1-1.5 0V3a1 1 0 1 0-2 0"/></svg>
+              </div>
+              <div id="hello-text">Say Hello</div>
+            </div>
+          </div>
+
+          <h1 id="hero-heading">
+            I'm Alex Kim<br/>
+            <span id="hero-role">Data Analyst</span><br/>
+            <span id="hero-location">Based in Kigali, Rwanda.</span>
+          </h1>
+
+          <span id="hero-desc">
+            Hi! I'm Alex, a Data Analyst with 5+ years of professional experience turning raw data into clear, actionable business intelligence. Expert in Python, SQL, Power BI, and Tableau — I deliver dashboards, predictive models, and automated reports that drive real decisions. I believe in quality and always commit to delivering accurate insights on time and within scope.
+          </span>
+
+          <!-- Stats -->
+          <div class="gjs-plg-flex-row" id="stats-row">
+            <div class="stat-cell">
+              <div class="stat-num">70+</div>
+              <div class="stat-lbl">Completed Projects</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-num">5+</div>
+              <div class="stat-lbl">Years Experience</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-num">45+</div>
+              <div class="stat-lbl">Happy Clients</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-num">8+</div>
+              <div class="stat-lbl">Certifications</div>
+            </div>
+          </div>
+
+          <div class="gjs-plg-flex-row" style="gap:12px;flex-wrap:wrap;margin-top:8px">
+            <a href="images/cv.pdf" class="sidebar-btn btn-dark" style="width:auto;padding:0 28px;height:46px;font-size:0.95rem" id="cvDownloadBtn2" download>⬇ Download CV</a>
+            <a href="#projects" class="sidebar-btn btn-green" style="width:auto;padding:0 28px;height:46px;font-size:0.95rem">View Projects</a>
+          </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" style="scroll-margin-top:20px">
+          <!-- About section label -->
+          <div class="gjs-plg-flex-row sec-label-row">
+            <div class="sec-label-inner">
+              <div class="sec-label-icon icon-blue">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.19 6.35c-2.04 2.29-3.44 5.58-3.57 5.89L2 10.69l4.05-4.05c.47-.47 1.15-.68 1.81-.55zM11.17 17s3.74-1.55 5.89-3.7c5.4-5.4 4.5-9.62 4.21-10.57-.95-.3-5.17-1.19-10.57 4.21C8.55 9.09 7 12.83 7 12.83zm6.48-2.19c-2.29 2.04-5.58 3.44-5.89 3.57L13.31 22l4.05-4.05c.47-.47.68-1.15.55-1.81zM9 18c0 .83-.34 1.58-.88 2.12C6.94 21.3 2 22 2 22s.7-4.94 1.88-6.12A2.996 2.996 0 0 1 9 18m4-9c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2"/></svg>
+              </div>
+              <div class="sec-label-text">About Me</div>
+            </div>
+          </div>
+
+          <div class="exp-card reveal" style="margin-bottom:10px">
+            <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
+              <!-- Replace src below with your photo -->
+              <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Alex Kim" style="width:140px;border-radius:12px;flex-shrink:0;object-fit:cover;aspect-ratio:1/1"/>
+              <div style="flex:1;min-width:200px">
+                <p style="color:#CBCBCB;line-height:1.8;font-size:0.97rem;margin-bottom:10px">
+                  Hi! I'm <strong style="color:white">Alex Kim</strong>, a Data Analyst passionate about uncovering insights from complex datasets. With 5+ years working across finance, healthcare, and e-commerce sectors, I combine deep technical skills with clear communication to help organisations make data-driven decisions confidently.
+                </p>
+                <p style="color:#CBCBCB;line-height:1.8;font-size:0.97rem;margin-bottom:14px">
+                  My workflow spans the full analytics pipeline — from raw data ingestion and SQL querying, through Python-based cleaning and modelling, to interactive Power BI and Tableau dashboards. I hold certifications in Data Analytics, Power BI, and Tableau, and I'm always learning to stay at the cutting edge.
+                </p>
+                <div style="display:flex;flex-wrap:wrap;gap:8px">
+                  <span style="background:rgba(40,233,140,0.1);border:1px solid rgba(40,233,140,0.3);color:#28E98C;padding:4px 12px;border-radius:6px;font-size:0.8rem;font-weight:600">Python</span>
+                  <span style="background:rgba(40,233,140,0.1);border:1px solid rgba(40,233,140,0.3);color:#28E98C;padding:4px 12px;border-radius:6px;font-size:0.8rem;font-weight:600">SQL</span>
+                  <span style="background:rgba(40,233,140,0.1);border:1px solid rgba(40,233,140,0.3);color:#28E98C;padding:4px 12px;border-radius:6px;font-size:0.8rem;font-weight:600">Power BI</span>
+                  <span style="background:rgba(40,233,140,0.1);border:1px solid rgba(40,233,140,0.3);color:#28E98C;padding:4px 12px;border-radius:6px;font-size:0.8rem;font-weight:600">Tableau</span>
+                  <span style="background:rgba(40,233,140,0.1);border:1px solid rgba(40,233,140,0.3);color:#28E98C;padding:4px 12px;border-radius:6px;font-size:0.8rem;font-weight:600">Machine Learning</span>
+                  <span style="background:rgba(40,233,140,0.1);border:1px solid rgba(40,233,140,0.3);color:#28E98C;padding:4px 12px;border-radius:6px;font-size:0.8rem;font-weight:600">ETL / Data Pipelines</span>
+                  <span style="background:rgba(40,233,140,0.1);border:1px solid rgba(40,233,140,0.3);color:#28E98C;padding:4px 12px;border-radius:6px;font-size:0.8rem;font-weight:600">Data Storytelling</span>
+                </div>
+                <a href="images/cv.pdf" class="sidebar-btn btn-dark cv-btn" style="width:auto;padding:0 24px;height:44px;font-size:0.9rem;margin-top:14px;display:inline-flex" id="cvDownloadBtn4" download>⬇ Download CV</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience label -->
+          <div class="gjs-plg-flex-row sec-label-row" style="padding-top:20px">
+            <div class="sec-label-inner">
+              <div class="sec-label-icon" style="color:white">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M15 11.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 11.5V8.947A3.5 3.5 0 0 0 3.5 10H7v.5a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V10h3.5c.98 0 1.865-.404 2.5-1.053zM9.25 1c.966 0 1.75.784 1.75 1.75V4h1.5a2.5 2.5 0 0 1 0 5H9v-.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5V9H3.5a2.5 2.5 0 0 1 0-5H5V2.75C5 1.784 5.784 1 6.75 1zm-2.5 1a.75.75 0 0 0-.75.75V4h4V2.75A.75.75 0 0 0 9.25 2z"/></svg>
+              </div>
+              <div class="sec-label-text">Experience</div>
+            </div>
+          </div>
+
+          <div class="gjs-plg-flex-row exp-cards-wrap">
+            <div class="exp-card reveal">
+              <div class="gjs-plg-flex-row exp-card-row" style="align-items:flex-start">
+                <div class="exp-icon-wrap"><div class="exp-icon"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M5.102 3a.5.5 0 0 0-.433.25l-2.598 4.5a.5.5 0 0 0 0 .5l2.504 4.337a.827.827 0 0 0 1.504-.165l2.89-9.146a1.826 1.826 0 0 1 3.322-.363l2.504 4.337a1.5 1.5 0 0 1 0 1.5l-2.598 4.5a1.5 1.5 0 0 1-1.299.75H8.502a.5.5 0 0 1 0-1h2.396a.5.5 0 0 0 .433-.25l2.598-4.5a.5.5 0 0 0 0-.5l-2.504-4.337a.826.826 0 0 0-1.503.164l-2.89 9.146a1.827 1.827 0 0 1-3.323.364L1.205 8.75a1.5 1.5 0 0 1 0-1.5l2.598-4.5A1.5 1.5 0 0 1 5.102 2h2.4a.5.5 0 0 1 0 1z"/></svg></div></div>
+                <div class="exp-title-wrap">
+                  <h3 class="exp-title">Senior Data Analyst</h3>
+                  <div class="exp-company">FinEdge Analytics Ltd</div>
+                </div>
+                <div class="exp-date-wrap"><div class="exp-date">2022 – Present</div></div>
+              </div>
+              <div class="gjs-divider"></div>
+              <span class="exp-desc">Led a 12-person data team. Built Power BI dashboards tracking $40M annual revenue; automated monthly reporting with Python, reducing manual effort by 70%. Implemented predictive churn models achieving 89% accuracy.</span>
+            </div>
+
+            <div class="exp-card reveal">
+              <div class="gjs-plg-flex-row exp-card-row" style="align-items:flex-start">
+                <div class="exp-icon-wrap"><div class="exp-icon"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M5.102 3a.5.5 0 0 0-.433.25l-2.598 4.5a.5.5 0 0 0 0 .5l2.504 4.337a.827.827 0 0 0 1.504-.165l2.89-9.146a1.826 1.826 0 0 1 3.322-.363l2.504 4.337a1.5 1.5 0 0 1 0 1.5l-2.598 4.5a1.5 1.5 0 0 1-1.299.75H8.502a.5.5 0 0 1 0-1h2.396a.5.5 0 0 0 .433-.25l2.598-4.5a.5.5 0 0 0 0-.5l-2.504-4.337a.826.826 0 0 0-1.503.164l-2.89 9.146a1.827 1.827 0 0 1-3.323.364L1.205 8.75a1.5 1.5 0 0 1 0-1.5l2.598-4.5A1.5 1.5 0 0 1 5.102 2h2.4a.5.5 0 0 1 0 1z"/></svg></div></div>
+                <div class="exp-title-wrap">
+                  <h3 class="exp-title">Data Analyst</h3>
+                  <div class="exp-company">DataBridge Solutions</div>
+                </div>
+                <div class="exp-date-wrap"><div class="exp-date">2020 – 2022</div></div>
+              </div>
+              <div class="gjs-divider"></div>
+              <span class="exp-desc">Designed 15+ Tableau dashboards for executive stakeholders. Wrote complex SQL queries on 50M+ row databases; built ETL pipelines in Python for daily data ingestion from 6 API sources.</span>
+            </div>
+
+            <div class="exp-card reveal">
+              <div class="gjs-plg-flex-row exp-card-row" style="align-items:flex-start">
+                <div class="exp-icon-wrap"><div class="exp-icon"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M5.102 3a.5.5 0 0 0-.433.25l-2.598 4.5a.5.5 0 0 0 0 .5l2.504 4.337a.827.827 0 0 0 1.504-.165l2.89-9.146a1.826 1.826 0 0 1 3.322-.363l2.504 4.337a1.5 1.5 0 0 1 0 1.5l-2.598 4.5a1.5 1.5 0 0 1-1.299.75H8.502a.5.5 0 0 1 0-1h2.396a.5.5 0 0 0 .433-.25l2.598-4.5a.5.5 0 0 0 0-.5l-2.504-4.337a.826.826 0 0 0-1.503.164l-2.89 9.146a1.827 1.827 0 0 1-3.323.364L1.205 8.75a1.5 1.5 0 0 1 0-1.5l2.598-4.5A1.5 1.5 0 0 1 5.102 2h2.4a.5.5 0 0 1 0 1z"/></svg></div></div>
+                <div class="exp-title-wrap">
+                  <h3 class="exp-title">Junior Data Analyst</h3>
+                  <div class="exp-company">TechVision East Africa</div>
+                </div>
+                <div class="exp-date-wrap"><div class="exp-date">2019 – 2020</div></div>
+              </div>
+              <div class="gjs-divider"></div>
+              <span class="exp-desc">Supported senior analysts with data cleaning, visualisation, and statistical reporting. Created weekly KPI reports for 3 product lines using Excel and Power BI.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills" style="scroll-margin-top:20px">
+          <!-- Skills label -->
+          <div class="gjs-plg-flex-row sec-label-row">
+            <div class="sec-label-inner">
+              <div class="sec-label-icon icon-orange">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.19 6.35c-2.04 2.29-3.44 5.58-3.57 5.89L2 10.69l4.05-4.05c.47-.47 1.15-.68 1.81-.55zM11.17 17s3.74-1.55 5.89-3.7c5.4-5.4 4.5-9.62 4.21-10.57-.95-.3-5.17-1.19-10.57 4.21C8.55 9.09 7 12.83 7 12.83zm6.48-2.19c-2.29 2.04-5.58 3.44-5.89 3.57L13.31 22l4.05-4.05c.47-.47.68-1.15.55-1.81zM9 18c0 .83-.34 1.58-.88 2.12C6.94 21.3 2 22 2 22s.7-4.94 1.88-6.12A2.996 2.996 0 0 1 9 18m4-9c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2"/></svg>
+              </div>
+              <div class="sec-label-text">Skills</div>
+            </div>
+          </div>
+
+          <!-- Skill bars -->
+          <div class="gjs-plg-flex-row exp-cards-wrap">
+            <div class="skillbar-card reveal">
+              <div class="skillbar-item">
+                <div class="skillbar-row"><span class="skillbar-name">Python (Pandas, NumPy, Scikit-learn)</span><span class="skillbar-pct">95%</span></div>
+                <div class="skillbar-bg"><div class="skillbar-fill sf-green" data-w="95%"></div></div>
+              </div>
+              <div class="skillbar-item">
+                <div class="skillbar-row"><span class="skillbar-name">SQL &amp; Database Management</span><span class="skillbar-pct">92%</span></div>
+                <div class="skillbar-bg"><div class="skillbar-fill sf-orange" data-w="92%"></div></div>
+              </div>
+              <div class="skillbar-item">
+                <div class="skillbar-row"><span class="skillbar-name">Power BI &amp; DAX</span><span class="skillbar-pct">90%</span></div>
+                <div class="skillbar-bg"><div class="skillbar-fill sf-blue" data-w="90%"></div></div>
+              </div>
+              <div class="skillbar-item">
+                <div class="skillbar-row"><span class="skillbar-name">Tableau</span><span class="skillbar-pct">88%</span></div>
+                <div class="skillbar-bg"><div class="skillbar-fill sf-purple" data-w="88%"></div></div>
+              </div>
+              <div class="skillbar-item">
+                <div class="skillbar-row"><span class="skillbar-name">Excel (Advanced / VBA)</span><span class="skillbar-pct">93%</span></div>
+                <div class="skillbar-bg"><div class="skillbar-fill sf-green" data-w="93%"></div></div>
+              </div>
+              <div class="skillbar-item">
+                <div class="skillbar-row"><span class="skillbar-name">Machine Learning (Scikit-learn)</span><span class="skillbar-pct">82%</span></div>
+                <div class="skillbar-bg"><div class="skillbar-fill sf-orange" data-w="82%"></div></div>
+              </div>
+              <div class="skillbar-item">
+                <div class="skillbar-row"><span class="skillbar-name">R &amp; Statistical Analysis</span><span class="skillbar-pct">78%</span></div>
+                <div class="skillbar-bg"><div class="skillbar-fill sf-blue" data-w="78%"></div></div>
+              </div>
+              <div class="skillbar-item" style="margin-bottom:0">
+                <div class="skillbar-row"><span class="skillbar-name">Data Pipelines &amp; ETL</span><span class="skillbar-pct">85%</span></div>
+                <div class="skillbar-bg"><div class="skillbar-fill sf-purple" data-w="85%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tools label -->
+          <div class="gjs-plg-flex-row sec-label-row" style="padding-top:18px">
+            <div class="sec-label-inner">
+              <div class="sec-label-icon" style="color:white">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M15 11.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 11.5V8.947A3.5 3.5 0 0 0 3.5 10H7v.5a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V10h3.5c.98 0 1.865-.404 2.5-1.053zM9.25 1c.966 0 1.75.784 1.75 1.75V4h1.5a2.5 2.5 0 0 1 0 5H9v-.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5V9H3.5a2.5 2.5 0 0 1 0-5H5V2.75C5 1.784 5.784 1 6.75 1zm-2.5 1a.75.75 0 0 0-.75.75V4h4V2.75A.75.75 0 0 0 9.25 2z"/></svg>
+              </div>
+              <div class="sec-label-text">Tools &amp; Technologies</div>
+            </div>
+          </div>
+
+          <div class="gjs-plg-flex-row" id="tools-wrap">
+            <!-- Tool tiles (matching template's stake/tool tile style) -->
+            <div class="tool-tile reveal">
+              <div class="tool-icon-wrap"><div class="tool-icon" style="color:#3776AB"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1 15H9v-2h4v2zm0-4H9V6h4v7z"/></svg></div></div>
+              <div class="tool-name-wrap"><h3 class="tool-name">Python</h3><div class="tool-sub">Pandas, NumPy, Scikit-learn</div></div>
+            </div>
+            <div class="tool-tile reveal">
+              <div class="tool-icon-wrap"><div class="tool-icon" style="color:#CC2927"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 3h20v2H2zm2 4h16v2H4zm0 4h16v2H4zm0 4h16v2H4zm0 4h16v2H4z"/></svg></div></div>
+              <div class="tool-name-wrap"><h3 class="tool-name">SQL</h3><div class="tool-sub">SQL Server, PostgreSQL, MySQL</div></div>
+            </div>
+            <div class="tool-tile reveal">
+              <div class="tool-icon-wrap"><div class="tool-icon" style="color:#F2C811"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 2v20c-5.07-.5-9-4.79-9-10s3.93-9.5 9-10zm2.03 0v8.99H22c-.47-4.74-4.24-8.52-8.97-8.99zm0 11.01V22c4.74-.47 8.5-4.25 8.97-8.99h-8.97z"/></svg></div></div>
+              <div class="tool-name-wrap"><h3 class="tool-name">Power BI</h3><div class="tool-sub">DAX, Power Query</div></div>
+            </div>
+            <div class="tool-tile reveal">
+              <div class="tool-icon-wrap"><div class="tool-icon" style="color:#E97627"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3zm2 2v14h14V5z"/></svg></div></div>
+              <div class="tool-name-wrap"><h3 class="tool-name">Tableau</h3><div class="tool-sub">Data Visualisation</div></div>
+            </div>
+            <div class="tool-tile reveal">
+              <div class="tool-icon-wrap"><div class="tool-icon" style="color:#217346"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg></div></div>
+              <div class="tool-name-wrap"><h3 class="tool-name">Excel</h3><div class="tool-sub">Advanced, VBA, Pivot Tables</div></div>
+            </div>
+            <div class="tool-tile reveal">
+              <div class="tool-icon-wrap"><div class="tool-icon" style="color:#276DC3"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18h-2v1.93A8.001 8.001 0 0 1 4.07 13H6v-2H4.07A8.001 8.001 0 0 1 11 4.07V6h2V4.07A8.001 8.001 0 0 1 19.93 11H18v2h1.93A8.001 8.001 0 0 1 13 19.93z"/></svg></div></div>
+              <div class="tool-name-wrap"><h3 class="tool-name">R Studio</h3><div class="tool-sub">Statistical Analysis</div></div>
+            </div>
+            <div class="tool-tile reveal">
+              <div class="tool-icon-wrap"><div class="tool-icon" style="color:#4DABCF"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v16H4zm2 2v12h12V6z"/></svg></div></div>
+              <div class="tool-name-wrap"><h3 class="tool-name">NumPy</h3><div class="tool-sub">Numerical Computing</div></div>
+            </div>
+            <div class="tool-tile reveal">
+              <div class="tool-icon-wrap"><div class="tool-icon" style="color:#F05032"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.6 10.59L8.38 4.8l2.72 2.72c-.23.77.38 1.61 1.23 1.61.84 0 1.52-.68 1.52-1.52 0-.85-.68-1.52-1.53-1.52l-2.71-2.71 7.07-7.07 1.42 1.41-7.07 7.07 2.72 2.72c-.23.77.38 1.61 1.23 1.61.84 0 1.52-.68 1.52-1.52 0-.85-.68-1.52-1.52-1.52L12.18 4.78 15.9 1.06l1.42 1.41-3.73 3.73 2.72 2.72c-.24.77.38 1.61 1.23 1.61.84 0 1.52-.68 1.52-1.52 0-.85-.68-1.52-1.52-1.52l-2.72-2.72 1.42-1.42L22 10.59z"/></svg></div></div>
+              <div class="tool-name-wrap"><h3 class="tool-name">Git / GitHub</h3><div class="tool-sub">Version Control</div></div>
+            </div>
+          </div>
+
+          <!-- Education label -->
+          <div class="gjs-plg-flex-row sec-label-row" style="padding-top:20px">
+            <div class="sec-label-inner">
+              <div class="sec-label-icon icon-orange">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17zM12 3L1 9l11 6 9-4.91V17h2V9z"/></svg>
+              </div>
+              <div class="sec-label-text">Education</div>
+            </div>
+          </div>
+
+          <div class="gjs-plg-flex-row" style="width:100%;flex-direction:column;gap:10px">
+            <div class="exp-card reveal">
+              <div class="gjs-plg-flex-row exp-card-row" style="align-items:flex-start">
+                <div class="exp-title-wrap">
+                  <h3 class="exp-title">BSc Statistics &amp; Data Science</h3>
+                  <div class="exp-company">University of Rwanda</div>
+                </div>
+                <div class="exp-date-wrap"><div class="exp-date">2015 – 2019</div></div>
+              </div>
+              <div class="gjs-divider"></div>
+              <span class="exp-desc">Graduated with honours. Specialised in statistical modelling, data mining, and applied mathematics. Final project: predictive model for agricultural yield forecasting using Python and R.</span>
+            </div>
+            <div class="exp-card reveal">
+              <div class="gjs-plg-flex-row exp-card-row" style="align-items:flex-start">
+                <div class="exp-title-wrap">
+                  <h3 class="exp-title">Google Data Analytics Certificate</h3>
+                  <div class="exp-company">Coursera / Google</div>
+                </div>
+                <div class="exp-date-wrap"><div class="exp-date">2021</div></div>
+              </div>
+              <div class="gjs-divider"></div>
+              <span class="exp-desc">Completed 8-course professional certificate covering data cleaning, analysis, visualisation, and R programming. Capstone project: bike-share usage pattern analysis.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" style="scroll-margin-top:20px">
+          <div class="gjs-plg-flex-row sec-label-row">
+            <div class="sec-label-inner">
+              <div class="sec-label-icon icon-blue">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.19 6.35c-2.04 2.29-3.44 5.58-3.57 5.89L2 10.69l4.05-4.05c.47-.47 1.15-.68 1.81-.55zM11.17 17s3.74-1.55 5.89-3.7c5.4-5.4 4.5-9.62 4.21-10.57-.95-.3-5.17-1.19-10.57 4.21C8.55 9.09 7 12.83 7 12.83zm6.48-2.19c-2.29 2.04-5.58 3.44-5.89 3.57L13.31 22l4.05-4.05c.47-.47.68-1.15.55-1.81zM9 18c0 .83-.34 1.58-.88 2.12C6.94 21.3 2 22 2 22s.7-4.94 1.88-6.12A2.996 2.996 0 0 1 9 18m4-9c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2"/></svg>
+              </div>
+              <div class="sec-label-text">Projects</div>
+            </div>
+          </div>
+
+          <div class="gjs-plg-flex-row" id="projects-grid">
+
+            <!-- PROJECT 1 -->
+            <div class="proj-card reveal">
+              <!-- Replace src with your project screenshot -->
+              <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Sales Dashboard" class="proj-img"/>
+              <div class="proj-bottom">
+                <div class="proj-info">
+                  <h3 class="proj-title">E-Commerce Sales Dashboard</h3>
+                  <div class="proj-tag">Power BI · DAX · SQL</div>
+                </div>
+                <a href="#" target="_blank" rel="noopener" class="proj-link-btn" title="Open project">
+                  <svg viewBox="0 0 12 12" fill="currentColor"><path d="M1.146 10.854a.5.5 0 0 1 0-.708L9.293 2H4.47a.5.5 0 0 1 0-1h6.03a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V2.707l-8.146 8.147a.5.5 0 0 1-.708 0"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- PROJECT 2 -->
+            <div class="proj-card reveal">
+              <!-- Replace src with your project screenshot -->
+              <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Churn Prediction" class="proj-img"/>
+              <div class="proj-bottom">
+                <div class="proj-info">
+                  <h3 class="proj-title">Customer Churn Prediction</h3>
+                  <div class="proj-tag">Python · Scikit-learn · SHAP</div>
+                </div>
+                <a href="#" target="_blank" rel="noopener" class="proj-link-btn" title="Open project">
+                  <svg viewBox="0 0 12 12" fill="currentColor"><path d="M1.146 10.854a.5.5 0 0 1 0-.708L9.293 2H4.47a.5.5 0 0 1 0-1h6.03a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V2.707l-8.146 8.147a.5.5 0 0 1-.708 0"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- PROJECT 3 -->
+            <div class="proj-card reveal">
+              <!-- Replace src with your project screenshot -->
+              <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Public Health Explorer" class="proj-img"/>
+              <div class="proj-bottom">
+                <div class="proj-info">
+                  <h3 class="proj-title">Public Health Data Explorer</h3>
+                  <div class="proj-tag">Tableau · Python · Pandas</div>
+                </div>
+                <a href="#" target="_blank" rel="noopener" class="proj-link-btn" title="Open project">
+                  <svg viewBox="0 0 12 12" fill="currentColor"><path d="M1.146 10.854a.5.5 0 0 1 0-.708L9.293 2H4.47a.5.5 0 0 1 0-1h6.03a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V2.707l-8.146 8.147a.5.5 0 0 1-.708 0"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- PROJECT 4 -->
+            <div class="proj-card reveal">
+              <!-- Replace src with your project screenshot -->
+              <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Inventory Analytics" class="proj-img"/>
+              <div class="proj-bottom">
+                <div class="proj-info">
+                  <h3 class="proj-title">Retail Inventory Analytics</h3>
+                  <div class="proj-tag">SQL Server · Excel · Power BI</div>
+                </div>
+                <a href="#" target="_blank" rel="noopener" class="proj-link-btn" title="Open project">
+                  <svg viewBox="0 0 12 12" fill="currentColor"><path d="M1.146 10.854a.5.5 0 0 1 0-.708L9.293 2H4.47a.5.5 0 0 1 0-1h6.03a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V2.707l-8.146 8.147a.5.5 0 0 1-.708 0"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- PROJECT 5 -->
+            <div class="proj-card reveal">
+              <!-- Replace src with your project screenshot -->
+              <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Sentiment Analysis" class="proj-img"/>
+              <div class="proj-bottom">
+                <div class="proj-info">
+                  <h3 class="proj-title">Customer Sentiment Analysis</h3>
+                  <div class="proj-tag">Python · NLP / BERT · Power BI</div>
+                </div>
+                <a href="#" target="_blank" rel="noopener" class="proj-link-btn" title="Open project">
+                  <svg viewBox="0 0 12 12" fill="currentColor"><path d="M1.146 10.854a.5.5 0 0 1 0-.708L9.293 2H4.47a.5.5 0 0 1 0-1h6.03a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V2.707l-8.146 8.147a.5.5 0 0 1-.708 0"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- PROJECT 6 -->
+            <div class="proj-card reveal">
+              <!-- Replace src with your project screenshot -->
+              <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Revenue Forecasting" class="proj-img"/>
+              <div class="proj-bottom">
+                <div class="proj-info">
+                  <h3 class="proj-title">Revenue Forecasting (R / Prophet)</h3>
+                  <div class="proj-tag">R · Prophet · Shiny Dashboard</div>
+                </div>
+                <a href="#" target="_blank" rel="noopener" class="proj-link-btn" title="Open project">
+                  <svg viewBox="0 0 12 12" fill="currentColor"><path d="M1.146 10.854a.5.5 0 0 1 0-.708L9.293 2H4.47a.5.5 0 0 1 0-1h6.03a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V2.707l-8.146 8.147a.5.5 0 0 1-.708 0"/></svg>
+                </a>
+              </div>
+            </div>
+
+          </div><!-- end projects-grid -->
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" style="scroll-margin-top:20px">
+          <div class="gjs-plg-flex-row sec-label-row">
+            <div class="sec-label-inner">
+              <div class="sec-label-icon icon-green">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2h11A2.5 2.5 0 0 1 20 4.5v14.25a.75.75 0 0 1-.75.75H5.5a1 1 0 0 0 1 1h12.75a.75.75 0 0 1 0 1.5H6.5A2.5 2.5 0 0 1 4 19.5zM14 8a2 2 0 1 0-4 0a2 2 0 0 0 4 0m1.5 4.5A1.5 1.5 0 0 0 14 11h-4a1.5 1.5 0 0 0-1.5 1.5c0 1.25 1 2.5 3.5 2.5s3.5-1.255 3.5-2.5"/></svg>
+              </div>
+              <div class="sec-label-text">Let's Get in Touch!</div>
+            </div>
+          </div>
+
+          <div class="gjs-plg-flex-row" id="contact-wrap">
+            <!-- Contact info -->
+            <div id="contact-info">
+              <div class="contact-item">
+                <div class="contact-item-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                </div>
+                <div>
+                  <span class="contact-lbl">Contact No</span>
+                  <div class="contact-val">+250 700 000 000</div>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </div>
+                <div>
+                  <span class="contact-lbl">Email Address</span>
+                  <div class="contact-val">alex.kim@email.com</div>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                </div>
+                <div>
+                  <span class="contact-lbl">Address</span>
+                  <div class="contact-val">Kigali, Rwanda</div>
+                </div>
+              </div>
+
+              <!-- WhatsApp button — replace 250700000000 with your number -->
+              <a href="https://wa.me/250700000000?text=Hi%20Alex!%20I%20saw%20your%20data%20portfolio%20and%20I%27d%20love%20to%20discuss%20a%20project." target="_blank" rel="noopener" class="wa-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Chat on WhatsApp
+              </a>
+            </div><!-- end contact-info -->
+
+            <!-- Contact form -->
+            <div id="contact-form">
+              <div class="form-wrap">
+                <input type="text"  id="fname"  placeholder="Name"/>
+                <input type="email" id="femail" placeholder="Email"/>
+                <input type="text"  id="fphone" placeholder="Phone..."/>
+                <select id="ftype">
+                  <option value="" disabled selected>What do you need?</option>
+                  <option>Data Analysis &amp; Reporting</option>
+                  <option>Power BI Dashboard</option>
+                  <option>Tableau Visualisation</option>
+                  <option>Python / ML Project</option>
+                  <option>SQL / Database Work</option>
+                  <option>Full-Time Role</option>
+                  <option>Other</option>
+                </select>
+                <textarea id="fmsg" rows="5" placeholder="Message..."></textarea>
+                <button type="button" id="send-btn" onclick="sendWA()">Send Message</button>
+              </div>
+            </div>
+
+          </div><!-- end contact-wrap -->
+        </section>
+
+      </div><!-- end main-col -->
+    </div><!-- end flex-row -->
+  </div><!-- end container -->
+</section>
+
+<!-- ===== FOOTER ===== -->
+<div id="footer">
+  <div id="footer-inner">
+    <div id="footer-top">
+      <div>
+        <div class="ft-brand-name">
+          <span class="ft-brand-dot"></span>Alex Kim
+        </div>
+        <p class="ft-desc">Data Analyst turning complex datasets into clear, business-changing insights with Python, SQL, Power BI, and Tableau.</p>
+        <div class="ft-socials">
+          <a href="#" class="ft-soc">Li</a>
+          <a href="#" class="ft-soc">Gh</a>
+          <a href="#" class="ft-soc">Ka</a>
+          <a href="#" class="ft-soc">Tw</a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <div class="ft-col-hd">Navigate</div>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <div class="ft-col-hd">Services</div>
+        <ul>
+          <li><a href="#projects">Data Analysis</a></li>
+          <li><a href="#projects">Power BI Dashboards</a></li>
+          <li><a href="#projects">ML Models</a></li>
+          <li><a href="#projects">SQL Reporting</a></li>
+          <li><a href="#projects">Tableau</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <div class="ft-col-hd">Contact</div>
+        <ul>
+          <li><a href="mailto:alex.kim@email.com">alex.kim@email.com</a></li>
+          <li><a href="tel:+250700000000">+250 700 000 000</a></li>
+          <li><a href="https://wa.me/250700000000" target="_blank">WhatsApp</a></li>
+          <li><a href="images/cv.pdf" download>Download CV</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Alice Cop trainer section -->
+    <div id="alice-box">
+      <div id="alice-left">
+        <div id="alice-logo-wrap">
+          <!-- Alice Cop logo placeholder -->
+          <img src="https://www.upskillshub.com/wp-content/uploads/2024/12/UP-SKILLS-HUB-1.jpg" alt="Alice Cop Trainer"/>
+        </div>
+        <div>
+          <div class="alice-lbl">Trained &amp; Mentored By</div>
+          <div class="alice-nm">Alice Cop — Data Analytics Trainer</div>
+          <div class="alice-sub">Professional Data Analytics &amp; Business Intelligence Training Programs</div>
+        </div>
+      </div>
+      <a href="https://www.alicecop.com/" target="_blank" rel="noopener" id="alice-btn">
+        Visit Alice Cop
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </a>
+    </div>
+
+    <div id="footer-bottom">
+      <h2 id="footer-name">Alex Kim</h2>
+      <span id="footer-copy">© 2025 Alex Kim. All rights reserved. Trained by <a href="https://www.alicecop.com/" target="_blank">Alice Cop</a>.</span>
+      <a href="images/cv.pdf" class="btn-cv-footer" download>⬇ Download CV</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Skill bars — init at 0 then animate on scroll
+  document.querySelectorAll('.skillbar-fill').forEach(b => b.style.width = '0%');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('vis');
+      entry.target.querySelectorAll('.skillbar-fill').forEach(b => {
+        b.style.width = b.getAttribute('data-w');
+      });
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // WhatsApp form
+  function sendWA() {
+    const name  = document.getElementById('fname').value.trim();
+    const email = document.getElementById('femail').value.trim();
+    const type  = document.getElementById('ftype').value;
+    const msg   = document.getElementById('fmsg').value.trim();
+    if (!name || !email || !msg) { alert('Please fill in name, email, and message.'); return; }
+    const num  = '250700000000'; // ← replace with your WhatsApp number
+    const text = encodeURIComponent(`Hi Alex! I'm ${name} (${email}).\nNeed: ${type || 'Not specified'}\n\n${msg}`);
+    window.open(`https://wa.me/${num}?text=${text}`, '_blank');
+  }
+</script>
+</body>
+</html>
